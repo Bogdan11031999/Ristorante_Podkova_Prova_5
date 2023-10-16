@@ -45,37 +45,32 @@ class PDFGenerator(context: Context) {
     dataMapCaviale: Map<String, Double>,dataMapPrimi: Map<String, Double>,dataMapSecondiCarne: Map<String, Double>,
     dataMapSecondiPesce: Map<String, Double>,dataMapContorni: Map<String, Double>,dataMapDesert: Map<String, Double>,) {
         try {
-            // Crea un documento PDF
             val document = Document()
-
-            // Specifica il percorso del file di output
             val outputFile = File(outputFilePath)
-
-            // Crea un oggetto PdfWriter per scrivere il documento sul file
             PdfWriter.getInstance(document, FileOutputStream(outputFile))
-
-            // Apri il documento per iniziare a scriverci
             document.open()
-
-            // Aggiungi i dati dalla mappa al documento
             val font = Font(Font.FontFamily.HELVETICA, 10f)
-            if(dataMapAntipastiFreddi.size!=0){
-                val paragraph = Paragraph("Antipasti", font)
+            if(dataMapAntipastiFreddi.size!=0||dataMapAntipastiCaldi.size!=0){
+                val paragraph = Paragraph("Закуски", font)
                 document.add(paragraph)
                 for ((key, value) in dataMapAntipastiFreddi) {
                     val paragraph = Paragraph("$key: $value", font)
                     document.add(paragraph)
                 }
+                for ((key, value) in dataMapAntipastiCaldi) {
+                    val paragraph = Paragraph("$key: $value", font)
+                    document.add(paragraph)
+                }
             }
-            if (dataMapAntipastiCaldi.size!=0){
-                
+            if(dataMapCaviale.size!=0){
+                val paragraph = Paragraph("Икра", font)
+                document.add(paragraph)
+                for ((key, value) in dataMapCaviale) {
+                    val paragraph = Paragraph("$key: $value", font)
+                    document.add(paragraph)
+                }
             }
-
-
-            // Chiudi il documento
             document.close()
-
-            // Stampa il PDF
             PDFPrinter.printPDF(mContext, outputFile)
         } catch (e: IOException) {
             e.printStackTrace()
