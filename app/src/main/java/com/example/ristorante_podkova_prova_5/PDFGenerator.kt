@@ -64,8 +64,14 @@ class PDFGenerator(context: Context) {
 
                 for ((key, value) in dataMapAntipastiFreddi) {
                     val piatto = translator.transformFromEngToRussian("Холодные закуски", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
+                    if(value!=0.3 && value!=0.5){
+                        val text = "$piatto: ${value.toInt()}"
+                        canvas.drawText(text, 40f, yOffset, paint)
+                    }else{
+                        val text = "$piatto: $value"
+                        canvas.drawText(text, 40f, yOffset, paint)
+                    }
+
                     yOffset += 20f
                 }
 
