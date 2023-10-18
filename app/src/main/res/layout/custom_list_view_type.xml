@@ -26,7 +26,7 @@
         android:backgroundTint="#050505"
         android:backgroundTintMode="add"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonAdd"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewItemType" />

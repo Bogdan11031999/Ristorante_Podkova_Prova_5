@@ -1,77 +1,151 @@
 package com.example.ristorante_podkova_prova_5
 
 import android.content.Context
-import com.itextpdf.text.Document
-import com.itextpdf.text.Font
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.pdf.PdfWriter
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.pdf.PdfDocument
 import android.os.Bundle
+import android.os.CancellationSignal
+import android.os.ParcelFileDescriptor
 import android.print.PageRange
 import android.print.PrintAttributes
 import android.print.PrintDocumentAdapter
 import android.print.PrintDocumentInfo
 import android.print.PrintManager
-import android.os.CancellationSignal
-import android.os.ParcelFileDescriptor
+
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 
+
 class PDFGenerator(context: Context) {
 
     private val mContext = context
 
-    /*
-            private const val KEY_ID_ANTIPASTIFREDDI = "id_antipasti_freddi"
-        private const val TABLE_ANTIPASTIFREDDI = "antipastifreddi"
-        private const val TABLE_ANTIPASTICALDI = "antipasticaldi"
-        private const val KEY_ID_ANTIPASTICALDI = "id_antipasti_caldi"
-        private const val KEY_ID_CAVIALE = "id_caviale"
-        private const val TABLE_CAVIALE = "caviale"
-        private const val KEY_ID_PRIMI = "id_primi"
-        private const val TABLE_PRIMI = "primi"
-        private const val KEY_ID_SECONDICARNE = "id_secondicarne"
-        private const val TABLE_SECONDICARNE = "secondicarne"
-        private const val KEY_ID_SECONDIPESCE = "id_secondipesce"
-        private const val TABLE_SECONDIPESCE = "secondipesce"
-        private const val KEY_ID_CONTORNI = "id_contorni"
-        private const val TABLE_CONTORNI = "contorni"
-        private const val KEY_ID_DESERT = "id_desert"
-        private const val TABLE_DESERT = "desert"
-     */
-
-    fun generateAndPrintPDF(outputFilePath: String, dataMapAntipastiFreddi: Map<String, Double>,dataMapAntipastiCaldi: Map<String, Double>,
-    dataMapCaviale: Map<String, Double>,dataMapPrimi: Map<String, Double>,dataMapSecondiCarne: Map<String, Double>,
-    dataMapSecondiPesce: Map<String, Double>,dataMapContorni: Map<String, Double>,dataMapDesert: Map<String, Double>,) {
+    fun generateAndPrintPDF(
+        stringInfo: String,
+        outputFilePath: String,
+        dataMapAntipastiFreddi: Map<String, Double>,
+        dataMapAntipastiCaldi: Map<String, Double>,
+        dataMapCaviale: Map<String, Double>,
+        dataMapPrimi: Map<String, Double>,
+        dataMapSecondiCarne: Map<String, Double>,
+        dataMapSecondiPesce: Map<String, Double>,
+        dataMapContorni: Map<String, Double>,
+        dataMapDesert: Map<String, Double>
+    ) {
         try {
-            val document = Document()
-            val outputFile = File(outputFilePath)
-            PdfWriter.getInstance(document, FileOutputStream(outputFile))
-            document.open()
-            val font = Font(Font.FontFamily.HELVETICA, 10f)
-            if(dataMapAntipastiFreddi.size!=0||dataMapAntipastiCaldi.size!=0){
-                val paragraph = Paragraph("Закуски", font)
-                document.add(paragraph)
+            val document = PdfDocument()
+            val pageWidthMm = 105
+            val pageHeightMm = 148
+            val pageWidthPt = pageWidthMm * 2.83465f
+            val pageHeightPt = pageHeightMm * 2.83465f
+
+            val pageInfo = PdfDocument.PageInfo.Builder(pageWidthPt.toInt(), pageHeightPt.toInt(), 1).create()
+            val page = document.startPage(pageInfo)
+            val canvas: Canvas = page.canvas
+
+            val paint = Paint()
+            paint.color = Color.BLACK
+            paint.textSize = 12f
+
+            val translator = Translator()
+
+            var yOffset = 40f
+
+            canvas.drawText(stringInfo, 20f, yOffset, paint)
+            yOffset += 20f
+
+            if (dataMapAntipastiFreddi.isNotEmpty() || dataMapAntipastiCaldi.isNotEmpty()) {
+                canvas.drawText("Закуски", 20f, yOffset, paint)
+                yOffset += 20f
+
                 for ((key, value) in dataMapAntipastiFreddi) {
-                    val paragraph = Paragraph("$key: $value", font)
-                    document.add(paragraph)
+                    val piatto = translator.transformFromEngToRussian("Холодные закуски", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 20f
                 }
+
                 for ((key, value) in dataMapAntipastiCaldi) {
-                    val paragraph = Paragraph("$key: $value", font)
-                    document.add(paragraph)
+                    val piatto = translator.transformFromEngToRussian("Горячие закуски", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 20f
                 }
             }
-            if(dataMapCaviale.size!=0){
-                val paragraph = Paragraph("Икра", font)
-                document.add(paragraph)
-                for ((key, value) in dataMapCaviale) {
-                    val paragraph = Paragraph("$key: $value", font)
-                    document.add(paragraph)
+
+            if (dataMapPrimi.isNotEmpty()) {
+                canvas.drawText("Первые блюда", 20f, yOffset, paint)
+                yOffset += 20f
+
+                for ((key, value) in dataMapPrimi) {
+                    val piatto = translator.transformFromEngToRussian("Первые блюда", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 20f
                 }
+
             }
+            if (dataMapSecondiCarne.isNotEmpty() || dataMapSecondiPesce.isNotEmpty() ) {
+                canvas.drawText("Вторые блюда", 20f, yOffset, paint)
+                yOffset += 20f
+
+                for ((key, value) in dataMapSecondiCarne) {
+                    val piatto = translator.transformFromEngToRussian("Вторые мясные блюда", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 20f
+                }
+
+                for ((key, value) in dataMapSecondiPesce) {
+                    val piatto = translator.transformFromEngToRussian("Вторые рыбные блюда", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 20f
+                }
+
+            }
+            if (dataMapContorni.isNotEmpty()) {
+                canvas.drawText("Гарнир", 20f, yOffset, paint)
+                yOffset += 20f
+
+                for ((key, value) in dataMapContorni) {
+                    val piatto = translator.transformFromEngToRussian("Гарнир", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 20f
+                }
+
+            }
+            if (dataMapDesert.isNotEmpty()) {
+                canvas.drawText("Десерт", 20f, yOffset, paint)
+                yOffset += 20f
+
+                for ((key, value) in dataMapContorni) {
+                    val piatto = translator.transformFromEngToRussian("Десерт", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 20f
+                }
+
+            }
+
+
+            document.finishPage(page)
+
+            val file = File(outputFilePath)
+            val fileOutputStream = FileOutputStream(file)
+            document.writeTo(fileOutputStream)
             document.close()
-            PDFPrinter.printPDF(mContext, outputFile)
+
+            fileOutputStream.flush()
+            fileOutputStream.close()
+
+            // Ora puoi usare il file PDF appena creato
+            // PDFPrinter.printPDF(context, file)
         } catch (e: IOException) {
             e.printStackTrace()
         } catch (e: Exception) {
@@ -80,7 +154,9 @@ class PDFGenerator(context: Context) {
     }
 }
 
-object PDFPrinter {
+
+
+    object PDFPrinter {
 
     fun printPDF(context: Context?, file: File?) {
         if (context == null || file == null || !file.exists()) {
@@ -98,7 +174,13 @@ object PDFPrinter {
 
     private class PDFPrintDocumentAdapter(private val pdfFile: File) : PrintDocumentAdapter() {
 
-        override fun onLayout(oldAttributes: PrintAttributes?, newAttributes: PrintAttributes?, cancellationSignal: CancellationSignal?, callback: LayoutResultCallback?, extras: Bundle?) {
+        override fun onLayout(
+            oldAttributes: PrintAttributes?,
+            newAttributes: PrintAttributes?,
+            cancellationSignal: CancellationSignal?,
+            callback: LayoutResultCallback?,
+            extras: Bundle?
+        ) {
             if (cancellationSignal?.isCanceled == true) {
                 callback?.onLayoutCancelled()
                 return
@@ -113,7 +195,12 @@ object PDFPrinter {
             callback?.onLayoutFinished(info, !newAttributes?.equals(oldAttributes)!!)
         }
 
-        override fun onWrite(pages: Array<out PageRange>?, destination: ParcelFileDescriptor?, cancellationSignal: CancellationSignal?, callback: WriteResultCallback?) {
+        override fun onWrite(
+            pages: Array<out PageRange>?,
+            destination: ParcelFileDescriptor?,
+            cancellationSignal: CancellationSignal?,
+            callback: WriteResultCallback?
+        ) {
             if (cancellationSignal?.isCanceled == true) {
                 callback?.onWriteCancelled()
                 return

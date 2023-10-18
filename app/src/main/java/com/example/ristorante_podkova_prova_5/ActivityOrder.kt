@@ -1,12 +1,11 @@
 package com.example.ristorante_podkova_prova_5
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.content.Context
-import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import java.io.File
 
 
@@ -40,6 +39,7 @@ class ActivityOrder : AppCompatActivity() {
         val textViewOrderInfo = findViewById<TextView>(R.id.textViewOrderInfo)
         val btnStampa = findViewById<Button>(R.id.btnStampa)
         textViewOrderInfo.setText("ЭТАЖ: "+floor+" СТОЛ: "+table)
+        val stringInfo="ЭТАЖ: "+floor+" СТОЛ: "+table
         //ricavo i dati dal database per gli antipasti_freddi
         val nonZeroDataAntipastiFreddi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_ANTIPASTIFREDDI","$KEY_ID_ANTIPASTIFREDDI")
         val nonZeroDataAntipastiCaldi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_ANTIPASTICALDI","$KEY_ID_ANTIPASTICALDI")
@@ -103,11 +103,11 @@ class ActivityOrder : AppCompatActivity() {
 
         btnStampa.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View){
-                val outputFilePath = getExternalFilesDir(null)?.absolutePath + File.separator + floor+" СТОЛ: "+table+".pdf" // Specifica il percorso per il PDF risultante
+                val outputFilePath = getExternalFilesDir(null)?.absolutePath + File.separator+"ЭТАЖ"+ floor+"СТОЛ"+table+".pdf" // Specifica il percorso per il PDF risultante
                 val pdfGenerator = PDFGenerator(this@ActivityOrder) // 'this' è il contesto dell'attività corrente
-                pdfGenerator.generateAndPrintPDF(outputFilePath, nonZeroDataAntipastiFreddi,nonZeroDataAntipastiCaldi,
+                pdfGenerator.generateAndPrintPDF(stringInfo,outputFilePath, nonZeroDataAntipastiFreddi,nonZeroDataAntipastiCaldi,
                     nonZeroDataCaviale,nonZeroDataPrimi,nonZeroDataSecondiCarne,nonZeroDataSecondiPesce,nonZeroDataControni,nonZeroDataDesert)
-                val pdfFile = File("/path/to/your/pdf/"+"ЭТАЖ: "+floor+" СТОЛ: "+table+".pdf") // Sostituisci con il percorso effettivo del tuo file PDF
+                val pdfFile = File(outputFilePath) // Sostituisci con il percorso effettivo del tuo file PDF
                 PDFPrinter.printPDF(this@ActivityOrder, pdfFile) // 'this' è il contesto dell'attività corrente
             }
         })
