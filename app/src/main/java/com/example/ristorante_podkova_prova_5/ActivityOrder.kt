@@ -49,54 +49,89 @@ class ActivityOrder : AppCompatActivity() {
         val nonZeroDataSecondiPesce = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_SECONDIPESCE","$KEY_ID_SECONDIPESCE")
         val nonZeroDataControni = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_CONTORNI","$KEY_ID_CONTORNI")
         val nonZeroDataDesert = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_DESERT","$KEY_ID_DESERT")
-
+        val translator = Translator()
         if(nonZeroDataAntipastiFreddi.size!=0 || nonZeroDataAntipastiCaldi.size!=0 || nonZeroDataCaviale.size!=0){
-            textViewOrder.append("Antipasti:"+"\n")
+            textViewOrder.append("Закуски:"+"\n")
             for ((column, value) in nonZeroDataAntipastiFreddi) {
                 if(value!=0.0){
-                    textViewOrder.append("$column: $value"+"\n")
+                    if(value!=0.3 && value!=0.5){
+                        val piatto = translator.transformFromEngToRussian("Холодные закуски", column)
+                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
+                    }else{
+                        textViewOrder.append("   $column: $value"+"\n")
+                    }
                 }
             }
             for ((column, value) in nonZeroDataAntipastiCaldi) {
                 if(value!=0.0){
-                    textViewOrder.append("$column: $value"+"\n")
+                    if(value!=0.3 && value!=0.5){
+                        val piatto = translator.transformFromEngToRussian("Горячие закуски", column)
+                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
+                    }else{
+                        textViewOrder.append("   $column: $value"+"\n")
+                    }
                 }
             }
             for ((column, value) in nonZeroDataCaviale) {
                 if(value!=0.0){
-                    textViewOrder.append("$column: $value"+"\n")
+                    if(value!=0.3 && value!=0.5){
+                        val piatto = translator.transformFromEngToRussian("Икра", column)
+                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
+                    }else{
+                        textViewOrder.append("   $column: $value"+"\n")
+                    }
                 }
             }
         }
 
         if(nonZeroDataPrimi.size!=0){
-            textViewOrder.append("Primi:"+"\n")
+            textViewOrder.append("Первые блюда:"+"\n")
             for ((column, value) in nonZeroDataPrimi) {
                 if(value!=0.0){
-                    textViewOrder.append("$column: $value"+"\n")
+                    if(value!=0.3 && value!=0.5){
+                        val piatto = translator.transformFromEngToRussian("Первые блюда", column)
+                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
+                    }else{
+                        textViewOrder.append("   $column: $value"+"\n")
+                    }
                 }
             }
         }
 
         if(nonZeroDataSecondiCarne.size!=0 || nonZeroDataSecondiPesce.size!=0){
-            textViewOrder.append("Secondi:"+"\n")
+            textViewOrder.append("Вторые блюда:"+"\n")
             for ((column, value) in nonZeroDataSecondiCarne) {
                 if(value!=0.0){
-                    textViewOrder.append("$column: $value"+"\n")
+                    if(value!=0.3 && value!=0.5){
+                        val piatto = translator.transformFromEngToRussian("Вторые мясные блюда", column)
+                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
+                    }else{
+                        textViewOrder.append("   $column: $value"+"\n")
+                    }
                 }
             }
             for ((column, value) in nonZeroDataSecondiPesce) {
                 if(value!=0.0){
-                    textViewOrder.append("$column: $value"+"\n")
+                    if(value!=0.3 && value!=0.5){
+                        val piatto = translator.transformFromEngToRussian("Вторые рыбные блюда", column)
+                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
+                    }else{
+                        textViewOrder.append("   $column: $value"+"\n")
+                    }
                 }
             }
         }
 
         if(nonZeroDataControni.size!=0){
-            textViewOrder.append("Contorni:"+"\n")
+            textViewOrder.append("Гарнир:"+"\n")
             for ((column, value) in nonZeroDataControni) {
                 if(value!=0.0){
-                    textViewOrder.append("$column: $value"+"\n")
+                    if(value!=0.3 && value!=0.5){
+                        val piatto = translator.transformFromEngToRussian("Гарнир", column)
+                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
+                    }else{
+                        textViewOrder.append("   $column: $value"+"\n")
+                    }
                 }
             }
         }

@@ -1,15 +1,10 @@
 package com.example.ristorante_podkova_prova_5
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.Spinner
 import android.widget.TextView
-import androidx.core.view.get
+import androidx.appcompat.app.AppCompatActivity
 
 class ActivityType : AppCompatActivity() {
 
@@ -69,7 +64,7 @@ class ActivityType : AppCompatActivity() {
                 typeList= mutableListOf("Жаренная картошка", "Пюре", "Гречневая каша", "Овощи гриль")
             }
             "Десерт"->{
-                typeList= mutableListOf("Торт ", "Чернослив", "Блины сгущенным молоком", "Блины с медом","Блины с нутеллой","Блины с мармеладом","ороженное","Сливочное мороженное с шоколадом","Сливочное мороженное с медом и орехами","Сливочное мороженное","с клюквенным вареньем","Сливочное мороженное с вишней","Сорбетто с клюквой")
+                typeList= mutableListOf("Торт", "Чернослив", "Блины сгущенным молоком", "Блины с медом","Блины с нутеллой","Блины с мармеладом","ороженное","Сливочное мороженное с шоколадом","Сливочное мороженное с медом и орехами","Сливочное мороженное","с клюквенным вареньем","Сливочное мороженное с вишней","Сорбетто с клюквой")
             }
 
         }

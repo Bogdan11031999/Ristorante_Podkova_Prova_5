@@ -2,20 +2,15 @@ package com.example.ristorante_podkova_prova_5
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 
 class CustomListType(private val context: Context, private val dataList: List<String>) : BaseAdapter() {
     lateinit var spinnerNumbers : Spinner
@@ -72,8 +67,8 @@ class CustomListType(private val context: Context, private val dataList: List<St
 
         buttonRemove.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View){
-                if(position==0 && selectedValue>0){
-                }
+                DatabaseHelper(context).setColumnValueToZero(trasformFromRussian(DatiQuery.tabella),transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt())
+                spinnerNumbers.setSelection(0)
             }
         })
 
