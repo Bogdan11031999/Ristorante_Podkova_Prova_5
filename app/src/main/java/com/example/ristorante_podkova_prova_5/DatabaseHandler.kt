@@ -26,16 +26,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val TABLE_SECONDIPESCE = "secondipesce"
         private const val KEY_ID_CONTORNI = "id_contorni"
         private const val TABLE_CONTORNI = "contorni"
-        private const val KEY_ID_DESERT = "id_desert"
-        private const val TABLE_DESERT = "desert"
         private const val KEY_ID_BOLLICINE= "id_bollicine"
         private const val TABLE_BOLLICINE = "desert"
         private const val KEY_ID_BIANCHI= "id_bianchi"
         private const val TABLE_BIANCHI = "bianchi"
         private const val KEY_ID_GEORGIANI= "id_georgiani"
         private const val TABLE_GEORGIANI = "georgiani"
-        private const val KEY_ID_SUCCHI= "id_succhi"
-        private const val TABLE_SUCCHI = "succhi"
         private const val KEY_ID_ALCO= "id_alco"
         private const val TABLE_ALCO = "alco"
         private const val KEY_ID_BEVANDE= "id_bevande"
@@ -53,7 +49,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         createTablesSecondiCarne(db)
         createTablesSecondiPesci(db)
         createTablesContorni(db)
-        createTablesDesert(db)
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
 
@@ -503,52 +498,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             // Gestisci l'eccezione qui se necessario
         }
     }
-    private fun createTablesDesert(db: SQLiteDatabase) {
-        val createTableDesert = """
-            CREATE TABLE IF NOT EXISTS $TABLE_DESERT (
-                $KEY_ID_DESERT INTEGER PRIMARY KEY,
-                torta DOUBLE,
-                prugne DOUBLE,
-                crepeNutella DOUBLE,
-                crepeMiele DOUBLE,
-                crepeLatte DOUBLE,
-                crepeMarmellata DOUBLE,
-                gelatoCiocolato DOUBLE,
-                gelatoAmarene DOUBLE,
-                gelatoMiele DOUBLE,
-                gelatoMarmellata DOUBLE,
-                sorbetto DOUBLE,
-                chiaveEsternaTavolo INTEGER UNIQUE,
-                FOREIGN KEY (chiaveEsternaTavolo) REFERENCES $TABLE_TAVOLO($KEY_ID)
-            )
-        """.trimIndent()
-
-        db.execSQL(createTableDesert)
-
-        val chiaviEsterne = arrayOf(
-            10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
-            11, 21, 31, 41, 51, 61, 71, 81, 91, 101
-        )
-
-        try {
-            for (id in chiaviEsterne) {
-                val contentValues = ContentValues()
-                contentValues.put("chiaveEsternaTavolo", id)
-                db.insertWithOnConflict(
-                    "$TABLE_DESERT",
-                    null,
-                    contentValues,
-                    SQLiteDatabase.CONFLICT_ABORT
-                )
-            }
-        } catch (e: Exception) {
-            // Gestisci l'eccezione qui se necessario
-        }
-    }
     private fun createTablesBollicine(db: SQLiteDatabase) {
         val createTableDesert = """
             CREATE TABLE IF NOT EXISTS $TABLE_BOLLICINE (
-                $KEY_ID_DESERT INTEGER PRIMARY KEY,
+                $KEY_ID_BOLLICINE INTEGER PRIMARY KEY,
                 conegliano DOUBLE,
                 prosecco DOUBLE,
                 levante DOUBLE,
@@ -845,7 +798,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             toast.show()
         }
     }
-
     fun updateDataToNullInAllTablesByChiaveEsterna( chiaveEsterna: Int) {
         val tableNames = arrayOf(
             TableConstants.TABLE_ANTIPASTIFREDDI,
@@ -854,8 +806,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             TableConstants.TABLE_PRIMI,
             TableConstants.TABLE_SECONDICARNE,
             TableConstants.TABLE_SECONDIPESCE,
-            TableConstants.TABLE_CONTORNI,
-            TableConstants.TABLE_DESERT
+            TableConstants.TABLE_CONTORNI
         )
         val toast = Toast.makeText(mContext, "Данние успешно удалини", Toast.LENGTH_SHORT)
         toast.show()
@@ -878,7 +829,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             KeyConstant.KEY_ID_SECONDICARNE,
             KeyConstant.KEY_ID_SECONDIPESCE,
             KeyConstant.KEY_ID_CONTORNI,
-            KeyConstant.KEY_ID_DESERT,
             KeyConstant.KEY_ID_CAVIALE
         )
 
@@ -895,8 +845,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.update(tableName, contentValues, whereClause, whereArgs)
         db.close()
     }
-
-
     private fun getTableColumnNames(db: SQLiteDatabase, tableName: String): List<String> {
         val columnNames = mutableListOf<String>()
         val cursor = db.rawQuery("PRAGMA table_info($tableName)", null)
@@ -912,11 +860,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
         return columnNames
     }
-
-
-
-
-
 }
 
 

@@ -22,7 +22,7 @@ class ActivityTable() : AppCompatActivity() {
         val buttonOrder = findViewById<Button>(R.id.buttonOrder);
         val buttonDelete = findViewById<Button>(R.id.buttonDelete)
 
-        val dataList = listOf("Холодные закуски", "Икра", "Горячие закуски", "Первые блюда", "Вторые мясные блюда", "Вторые рыбные блюда","Гарнир","Десерт")
+        val dataList = listOf("Холодные закуски", "Икра", "Горячие закуски", "Первые блюда", "Вторые мясные блюда", "Вторые рыбные блюда","Гарнир")
         val adapter = CustomListAdapter(this, dataList)
         listViewMenu.adapter = adapter
         listViewMenu.setOnItemClickListener { parent, view, position, id ->
@@ -34,7 +34,6 @@ class ActivityTable() : AppCompatActivity() {
                 4 -> startNewActivity(ActivityType::class.java,"Вторые мясные блюда",floor, table)
                 5 -> startNewActivity(ActivityType::class.java,"Вторые рыбные блюда",floor, table)
                 6 -> startNewActivity(ActivityType::class.java,"Гарнир",floor, table)
-                7 -> startNewActivity(ActivityType::class.java,"Десерт",floor, table)
             }
         }
         buttonOrder.setOnClickListener(object : View.OnClickListener{

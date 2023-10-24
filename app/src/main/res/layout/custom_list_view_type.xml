@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/textViewItemType"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -21,7 +21,7 @@
     <Spinner
         android:id="@+id/spinnerNumbers"
         android:layout_width="140dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="#00000000"
         android:backgroundTint="#050505"
         android:backgroundTintMode="add"
@@ -34,7 +34,7 @@
     <ImageButton
         android:id="@+id/imageButtonAdd"
         android:layout_width="135dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonRemove"
         app:layout_constraintTop_toBottomOf="@+id/textViewItemType"
         app:srcCompat="@android:drawable/ic_input_add" />
@@ -42,7 +42,7 @@
     <ImageButton
         android:id="@+id/imageButtonRemove"
         android:layout_width="135dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewItemType"
         app:srcCompat="@android:drawable/ic_delete" />
