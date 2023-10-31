@@ -103,6 +103,9 @@ class Translator {
             "Вторые рыбные блюда"->typeTransformed="secondipesce"
             "Гарнир"->typeTransformed="contorni"
             "Десерт"->typeTransformed="desert"
+            "Напитки"->typeTransformed="bevande"
+            "Алкоголь"->typeTransformed="alco"
+
         }
         return typeTransformed;
     }
@@ -194,7 +197,39 @@ class Translator {
                     "Овощи гриль"->typeTransformed="verdura"
                 }
             }
-
+            "Напитки"->{
+                when(colum){
+                    "Сок яблочно виноградный"->typeTransformed="melaUva"
+                    "Сок томатный"->typeTransformed="pomodoro"
+                    "Морс клюквенный"->typeTransformed="mors"
+                }
+            }
+            "Напитки"->{
+                when(colum){
+                    "Сок яблочно виноградный"->typeTransformed="melaUva"
+                    "Сок томатный"->typeTransformed="pomodoro"
+                    "Морс клюквенный"->typeTransformed="mors"
+                }
+            }
+            "Алкоголь"->{
+                when(colum){
+                    "Vodka Beluga"->typeTransformed="beluga"
+                    "Vodka Russky Standart"->typeTransformed="standart"
+                    "Vodka Russky Standart Bicchiere"->typeTransformed="standartGlass"
+                    "Vodka lampone"->typeTransformed="lampone"
+                    "Vodka granberry"->typeTransformed="granBerry"
+                    "Vodka amarena"->typeTransformed="amarena"
+                    "Vodka con peppe e miele"->typeTransformed="peppe"
+                    "Birra Zhygulovske"->typeTransformed="zhygulovske"
+                    "Birra Bochkovoe nefiltrovane"->typeTransformed="bochkovoe"
+                    "Birra Kaban"->typeTransformed="kaban"
+                    "Amaro"->typeTransformed="amaro"
+                    "Whisky"->typeTransformed="whisky"
+                    "Rum"->typeTransformed="rum"
+                    "Brendi"->typeTransformed="brendi"
+                    "Cognac"->typeTransformed="cognac"
+                }
+        }
         }
         return typeTransformed
     }

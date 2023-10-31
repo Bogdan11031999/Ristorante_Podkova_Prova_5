@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
@@ -35,12 +36,33 @@ class ActivityOrder : AppCompatActivity() {
         setContentView(R.layout.activity_order)
         val floor = intent.getIntExtra("floor", 0)
         val table = intent.getIntExtra("table", 0)
-        val textViewOrder = findViewById<TextView>(R.id.textViewOrder)
         val textViewOrderInfo = findViewById<TextView>(R.id.textViewOrderInfo)
         val btnStampa = findViewById<Button>(R.id.btnStampa)
+        val listViewOrder = findViewById<ListView>(R.id.listViewOrder)
+
+        //val adapter = CustomListOrder(this, )
+        //listViewOrder.adapter = adapter
         textViewOrderInfo.setText("ЭТАЖ: "+floor+" СТОЛ: "+table)
         val stringInfo="ЭТАЖ: "+floor+" СТОЛ: "+table
         //ricavo i dati dal database per gli antipasti_freddi
+
+
+
+        btnStampa.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View){
+                val outputFilePath = getExternalFilesDir(null)?.absolutePath + File.separator+"ЭТАЖ"+ floor+"СТОЛ"+table+".pdf" // Specifica il percorso per il PDF risultante
+                val pdfGenerator = PDFGenerator(this@ActivityOrder) // 'this' è il contesto dell'attività corrente
+                /*pdfGenerator.generateAndPrintPDF(stringInfo,outputFilePath, nonZeroDataAntipastiFreddi,nonZeroDataAntipastiCaldi,
+                    nonZeroDataCaviale,nonZeroDataPrimi,nonZeroDataSecondiCarne,nonZeroDataSecondiPesce,nonZeroDataControni)*/
+                val pdfFile = File(outputFilePath) // Sostituisci con il percorso effettivo del tuo file PDF
+                PDFPrinter.printPDF(this@ActivityOrder, pdfFile) // 'this' è il contesto dell'attività corrente
+            }
+        })
+
+
+    }
+    fun loadDataFromDBIntoMap(floor:Int,table:Int){
+        val translator = Translator()
         val nonZeroDataAntipastiFreddi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_ANTIPASTIFREDDI","$KEY_ID_ANTIPASTIFREDDI")
         val nonZeroDataAntipastiCaldi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_ANTIPASTICALDI","$KEY_ID_ANTIPASTICALDI")
         val nonZeroDataCaviale = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_CAVIALE","$KEY_ID_CAVIALE")
@@ -48,105 +70,21 @@ class ActivityOrder : AppCompatActivity() {
         val nonZeroDataSecondiCarne = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_SECONDICARNE","$KEY_ID_SECONDICARNE")
         val nonZeroDataSecondiPesce = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_SECONDIPESCE","$KEY_ID_SECONDIPESCE")
         val nonZeroDataControni = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_CONTORNI","$KEY_ID_CONTORNI")
-        val nonZeroDataDesert = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_DESERT","$KEY_ID_DESERT")
-        val translator = Translator()
-        if(nonZeroDataAntipastiFreddi.size!=0 || nonZeroDataAntipastiCaldi.size!=0 || nonZeroDataCaviale.size!=0){
-            textViewOrder.append("Закуски:"+"\n")
-            for ((column, value) in nonZeroDataAntipastiFreddi) {
+        val data = mutableMapOf<String, Double>()
+        if(nonZeroDataAntipastiFreddi.size!=0){
+            for ((column, value) in nonZeroDataAntipastiFreddi){
                 if(value!=0.0){
-                    if(value!=0.3 && value!=0.5){
-                        val piatto = translator.transformFromEngToRussian("Холодные закуски", column)
-                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
-                    }else{
-                        textViewOrder.append("   $column: $value"+"\n")
-                    }
-                }
-            }
-            for ((column, value) in nonZeroDataAntipastiCaldi) {
-                if(value!=0.0){
-                    if(value!=0.3 && value!=0.5){
-                        val piatto = translator.transformFromEngToRussian("Горячие закуски", column)
-                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
-                    }else{
-                        textViewOrder.append("   $column: $value"+"\n")
-                    }
-                }
-            }
-            for ((column, value) in nonZeroDataCaviale) {
-                if(value!=0.0){
-                    if(value!=0.3 && value!=0.5){
-                        val piatto = translator.transformFromEngToRussian("Икра", column)
-                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
-                    }else{
-                        textViewOrder.append("   $column: $value"+"\n")
-                    }
+                    data.put(translator.transformFromEngToRussian("Холодные закуски",column),value)
                 }
             }
         }
-
-        if(nonZeroDataPrimi.size!=0){
-            textViewOrder.append("Первые блюда:"+"\n")
-            for ((column, value) in nonZeroDataPrimi) {
+        if(nonZeroDataAntipastiCaldi.size!=0){
+            for ((column, value) in nonZeroDataAntipastiCaldi){
                 if(value!=0.0){
-                    if(value!=0.3 && value!=0.5){
-                        val piatto = translator.transformFromEngToRussian("Первые блюда", column)
-                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
-                    }else{
-                        textViewOrder.append("   $column: $value"+"\n")
-                    }
+                    data.put(translator.transformFromEngToRussian("Горячие закуски",column),value)
                 }
             }
         }
-
-        if(nonZeroDataSecondiCarne.size!=0 || nonZeroDataSecondiPesce.size!=0){
-            textViewOrder.append("Вторые блюда:"+"\n")
-            for ((column, value) in nonZeroDataSecondiCarne) {
-                if(value!=0.0){
-                    if(value!=0.3 && value!=0.5){
-                        val piatto = translator.transformFromEngToRussian("Вторые мясные блюда", column)
-                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
-                    }else{
-                        textViewOrder.append("   $column: $value"+"\n")
-                    }
-                }
-            }
-            for ((column, value) in nonZeroDataSecondiPesce) {
-                if(value!=0.0){
-                    if(value!=0.3 && value!=0.5){
-                        val piatto = translator.transformFromEngToRussian("Вторые рыбные блюда", column)
-                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
-                    }else{
-                        textViewOrder.append("   $column: $value"+"\n")
-                    }
-                }
-            }
-        }
-
-        if(nonZeroDataControni.size!=0){
-            textViewOrder.append("Гарнир:"+"\n")
-            for ((column, value) in nonZeroDataControni) {
-                if(value!=0.0){
-                    if(value!=0.3 && value!=0.5){
-                        val piatto = translator.transformFromEngToRussian("Гарнир", column)
-                        textViewOrder.append("   $piatto: ${value.toInt()}"+"\n")
-                    }else{
-                        textViewOrder.append("   $column: $value"+"\n")
-                    }
-                }
-            }
-        }
-
-        btnStampa.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View){
-                val outputFilePath = getExternalFilesDir(null)?.absolutePath + File.separator+"ЭТАЖ"+ floor+"СТОЛ"+table+".pdf" // Specifica il percorso per il PDF risultante
-                val pdfGenerator = PDFGenerator(this@ActivityOrder) // 'this' è il contesto dell'attività corrente
-                pdfGenerator.generateAndPrintPDF(stringInfo,outputFilePath, nonZeroDataAntipastiFreddi,nonZeroDataAntipastiCaldi,
-                    nonZeroDataCaviale,nonZeroDataPrimi,nonZeroDataSecondiCarne,nonZeroDataSecondiPesce,nonZeroDataControni,nonZeroDataDesert)
-                val pdfFile = File(outputFilePath) // Sostituisci con il percorso effettivo del tuo file PDF
-                PDFPrinter.printPDF(this@ActivityOrder, pdfFile) // 'this' è il contesto dell'attività corrente
-            }
-        })
-
 
     }
 

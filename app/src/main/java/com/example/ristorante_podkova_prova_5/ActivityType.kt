@@ -1,7 +1,10 @@
 package com.example.ristorante_podkova_prova_5
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -24,12 +27,20 @@ class ActivityType : AppCompatActivity() {
         DatiQuery.tabella=type
         val listView = findViewById<ListView>(R.id.listViewType)
         val textView = findViewById<TextView>(R.id.textViewType)
+        val buttonViewOrder = findViewById<Button>(R.id.buttonViewOrder)
         textView.setText("ЭТАЖ: "+floor+" СТОЛ: "+table+" КАТ: "+type)
 
         val dataList = creaListaDiNumeri(type)
         val adapter = CustomListType(this, dataList)
         listView.adapter = adapter
-
+        buttonViewOrder.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View){
+                val intent = Intent(this@ActivityType, ActivityOrder::class.java)
+                intent.putExtra("floor", floor)
+                intent.putExtra("table",table)
+                startActivity(intent)
+            }
+        })
 
     }
 
@@ -62,6 +73,14 @@ class ActivityType : AppCompatActivity() {
             }
             "Гарнир"->{
                 typeList= mutableListOf("Жаренная картошка", "Пюре", "Гречневая каша", "Овощи гриль")
+            }
+            "Напитки"->{
+                typeList= mutableListOf("Сок яблочно виноградный", "Сок томатный", "Морс клюквенный")
+            }
+            "Алкоголь"->{
+                typeList= mutableListOf("Vodka Beluga", "Vodka Russky Standart", "Vodka Russky Standart Bicchiere",
+                    "Vodka lampone","Vodka granberry","Vodka amarena","Vodka con peppe e miele","Birra Zhygulovske",
+                    "Birra Bochkovoe nefiltrovane", "Birra Kaban","Amaro","Whisky","Rum","Brendi","Cognac")
             }
         }
 

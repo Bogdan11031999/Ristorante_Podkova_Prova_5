@@ -27,7 +27,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_ID_CONTORNI = "id_contorni"
         private const val TABLE_CONTORNI = "contorni"
         private const val KEY_ID_BOLLICINE= "id_bollicine"
-        private const val TABLE_BOLLICINE = "desert"
+        private const val TABLE_BOLLICINE = "bollicine"
         private const val KEY_ID_BIANCHI= "id_bianchi"
         private const val TABLE_BIANCHI = "bianchi"
         private const val KEY_ID_GEORGIANI= "id_georgiani"
@@ -49,6 +49,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         createTablesSecondiCarne(db)
         createTablesSecondiPesci(db)
         createTablesContorni(db)
+        createTablesBollicine(db)
+        createTablesRossi(db)
+        createTablesBianci(db)
+        createTablesGeorgiani(db)
+        createTablesBevande(db)
+        createTablesAlco(db)
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
 
@@ -671,6 +677,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 melaUva DOUBLE,
                 pomodoro DOUBLE,
                 mors DOUBLE,
+                cola DOUBLE,
+                te DOUBLE,
+                caffe DOUBLE,
+                gasata DOUBLE,
+                naturale DOUBLE,
                 chiaveEsternaTavolo INTEGER UNIQUE,
                 FOREIGN KEY (chiaveEsternaTavolo) REFERENCES $TABLE_TAVOLO($KEY_ID)
             )
@@ -704,10 +715,19 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 $KEY_ID_ALCO INTEGER PRIMARY KEY,
                 beluga DOUBLE,
                 standart DOUBLE,
+                standartGlass DOUBLE,
                 lampone DOUBLE,
                 granBerry DOUBLE,
                 amarena DOUBLE,
                 peppe DOUBLE,
+                zhygulovske DOUBLE,
+                bochkovoe DOUBLE,
+                kaban DOUBLE,
+                amaro DOUBLE,
+                whisky DOUBLE,
+                rum DOUBLE,
+                brendi DOUBLE,
+                cognac DOUBLE,
                 chiaveEsternaTavolo INTEGER UNIQUE,
                 FOREIGN KEY (chiaveEsternaTavolo) REFERENCES $TABLE_TAVOLO($KEY_ID)
             )
@@ -806,7 +826,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             TableConstants.TABLE_PRIMI,
             TableConstants.TABLE_SECONDICARNE,
             TableConstants.TABLE_SECONDIPESCE,
-            TableConstants.TABLE_CONTORNI
+            TableConstants.TABLE_CONTORNI,
+            TableConstants.TABLE_ALCO,
+            TableConstants.TABLE_BOLLICINE,
+            TableConstants.TABLE_BEVANDE,
+            TableConstants.TABLE_ROSSI,
+            TableConstants.TABLE_BIANCHI,
+            TableConstants.TABLE_GEORGIANI
         )
         val toast = Toast.makeText(mContext, "Данние успешно удалини", Toast.LENGTH_SHORT)
         toast.show()
@@ -829,7 +855,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             KeyConstant.KEY_ID_SECONDICARNE,
             KeyConstant.KEY_ID_SECONDIPESCE,
             KeyConstant.KEY_ID_CONTORNI,
-            KeyConstant.KEY_ID_CAVIALE
+            KeyConstant.KEY_ID_CAVIALE,
+            KeyConstant.KEY_ID_BEVANDE,
+            KeyConstant.KEY_ID_ROSSI,
+            KeyConstant.KEY_ID_GEORGIANI,
+            KeyConstant.KEY_ID_BOLLICINE,
+            KeyConstant.KEY_ID_ALCO,
+            KeyConstant.KEY_ID_BIANCHI
         )
 
 // Rimuovi le chiavi specificate da columnNames
@@ -860,6 +892,31 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
         return columnNames
     }
+    fun getDatoFromTabella(tableName: String,columnName: String, chiaveEsterna: Int): Double? {
+        val db = this.readableDatabase
+
+        val selection = "chiaveEsternaTavolo = ?"
+        val selectionArgs = arrayOf(chiaveEsterna.toString())
+
+        val cursor = db.query(tableName,arrayOf(columnName),selection,
+            selectionArgs,null,null,null
+        )
+
+        var dato: Double? = null
+
+        val columnIndex = cursor.getColumnIndex(columnName)
+        if (columnIndex != -1 && cursor.moveToFirst()) {
+            dato = cursor.getDouble(columnIndex)
+        }
+
+        cursor.close()
+        db.close()
+
+        return dato
+    }
+
+
+
 }
 
 

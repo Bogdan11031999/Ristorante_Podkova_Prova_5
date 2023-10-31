@@ -36,6 +36,7 @@ class CustomListType(private val context: Context, private val dataList: List<St
         textViewItemType.text = item.toString()
         val buttonAdd = view.findViewById<ImageButton>(R.id.imageButtonAdd)
         val buttonRemove = view.findViewById<ImageButton>(R.id.imageButtonRemove)
+        val textViewPieces = view.findViewById<TextView>(R.id.textViewPieces)
         val numbers = arrayOf("0","1","2","3","4","5","6","7","8","9","10","0.3","0.5")
         spinnerNumbers = view.findViewById(R.id.spinnerNumbers) as Spinner
         spinnerNumbers.adapter = ArrayAdapter<String>(context,R.layout.spinner_dropdown_layout,numbers)
@@ -61,6 +62,7 @@ class CustomListType(private val context: Context, private val dataList: List<St
             override fun onClick(v: View){
                 if(selectedValue>0){
                     DatabaseHelper(context).inserisciDato(translator.trasformFromRussian(DatiQuery.tabella),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),selectedValue,foreignKey.toInt())
+                    textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(DatiQuery.tabella,translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
                 }
             }
         })

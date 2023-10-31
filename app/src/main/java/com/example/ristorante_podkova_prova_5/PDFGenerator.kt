@@ -34,7 +34,6 @@ class PDFGenerator(context: Context) {
         dataMapSecondiCarne: Map<String, Double>,
         dataMapSecondiPesce: Map<String, Double>,
         dataMapContorni: Map<String, Double>,
-        dataMapDesert: Map<String, Double>
     ) {
         try {
             val document = PdfDocument()
@@ -138,18 +137,6 @@ class PDFGenerator(context: Context) {
 
                 for ((key, value) in dataMapContorni) {
                     val piatto = translator.transformFromEngToRussian("Гарнир", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 20f
-                }
-
-            }
-            if (dataMapDesert.isNotEmpty()) {
-                canvas.drawText("Десерт", 20f, yOffset, paint)
-                yOffset += 20f
-
-                for ((key, value) in dataMapContorni) {
-                    val piatto = translator.transformFromEngToRussian("Десерт", key)
                     val text = "$piatto: $value"
                     canvas.drawText(text, 40f, yOffset, paint)
                     yOffset += 20f
