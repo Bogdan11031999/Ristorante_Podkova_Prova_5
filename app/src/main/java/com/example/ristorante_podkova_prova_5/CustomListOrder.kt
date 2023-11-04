@@ -4,17 +4,21 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
+import android.widget.Spinner
 import android.widget.TextView
 
-class CustomListOrder(private val context: Context, private val dataList: List<String>) : BaseAdapter() {
-
+class CustomListOrder(private val context: Context, private val dataList: Map<String, Double>) : BaseAdapter() {
+    lateinit var spinnerNumbers : Spinner
+    var selectedValue: Double = 0.0
     override fun getCount(): Int {
         return dataList.size
     }
 
     override fun getItem(position: Int): Any {
-        return dataList[position]
+        val entries = dataList.entries.toList()
+        return entries[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -22,28 +26,18 @@ class CustomListOrder(private val context: Context, private val dataList: List<S
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View
-        val viewHolder: ViewHolder
+        val view: View = LayoutInflater.from(context).inflate(R.layout.custom_list_view_type, parent, false)
 
-        if (convertView == null) {
-            view =
-                LayoutInflater.from(context).inflate(R.layout.custom_list_view_order, parent, false)
-            viewHolder = ViewHolder(view)
-            view.tag = viewHolder
-        } else {
-            view = convertView
-            viewHolder = view.tag as ViewHolder
-        }
-
-        val item = getItem(position) as String
-
-        // Imposta il testo nella TextView
-        viewHolder.textView.text = item
+        val entry = getItem(position) as Map.Entry<String, Double>
+        val textView = view.findViewById<TextView>(R.id.textViewItemType)
+        val textViewPieces = view.findViewById<TextView>(R.id.textViewPieces)
+        val numbers = arrayOf("0","1","2","3","4","5","6","7","8","9","10","0.3","0.5")
+        spinnerNumbers = view.findViewById(R.id.spinnerNumbers) as Spinner
+        spinnerNumbers.adapter = ArrayAdapter<String>(context,R.layout.spinner_dropdown_layout,numbers)
+        textView.text = entry.key
+        textViewPieces.text = entry.value.toString()
 
         return view
     }
-
-    private class ViewHolder(view: View) {
-        val textView: TextView = view.findViewById(R.id.textViewItem)
-    }
 }
+

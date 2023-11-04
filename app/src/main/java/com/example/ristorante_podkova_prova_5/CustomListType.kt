@@ -41,6 +41,8 @@ class CustomListType(private val context: Context, private val dataList: List<St
         spinnerNumbers = view.findViewById(R.id.spinnerNumbers) as Spinner
         spinnerNumbers.adapter = ArrayAdapter<String>(context,R.layout.spinner_dropdown_layout,numbers)
         val translator = Translator()
+        val foreignKey = DatiQuery.tavolo+DatiQuery.piano
+        textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(DatiQuery.tabella),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
         spinnerNumbers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
                 var selectedItemAsString = parent?.getItemAtPosition(pos).toString()
@@ -56,13 +58,11 @@ class CustomListType(private val context: Context, private val dataList: List<St
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
-        val foreignKey = DatiQuery.tavolo+DatiQuery.piano
-        //type+"/"+table+"/"+floor
         buttonAdd.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View){
                 if(selectedValue>0){
                     DatabaseHelper(context).inserisciDato(translator.trasformFromRussian(DatiQuery.tabella),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),selectedValue,foreignKey.toInt())
-                    textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(DatiQuery.tabella,translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
+                    textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(DatiQuery.tabella),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
                 }
             }
         })
@@ -70,6 +70,7 @@ class CustomListType(private val context: Context, private val dataList: List<St
         buttonRemove.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View){
                 DatabaseHelper(context).setColumnValueToZero(translator.trasformFromRussian(DatiQuery.tabella),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt())
+                textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(DatiQuery.tabella),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
                 spinnerNumbers.setSelection(0)
             }
         })
@@ -79,7 +80,4 @@ class CustomListType(private val context: Context, private val dataList: List<St
     }
 
 
-    private class ViewHolder(view: View) {
-        val textView: TextView = view.findViewById(R.id.textViewItemType)
-    }
 }

@@ -40,28 +40,32 @@ class ActivityOrder : AppCompatActivity() {
         val btnStampa = findViewById<Button>(R.id.btnStampa)
         val listViewOrder = findViewById<ListView>(R.id.listViewOrder)
 
-        //val adapter = CustomListOrder(this, )
-        //listViewOrder.adapter = adapter
+        val adapter = CustomListOrder(this@ActivityOrder,loadDataFromDBIntoMap(floor,table))
+        listViewOrder.adapter = adapter
         textViewOrderInfo.setText("ЭТАЖ: "+floor+" СТОЛ: "+table)
         val stringInfo="ЭТАЖ: "+floor+" СТОЛ: "+table
-        //ricavo i dati dal database per gli antipasti_freddi
-
-
+        val nonZeroDataAntipastiFreddi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_ANTIPASTIFREDDI","$KEY_ID_ANTIPASTIFREDDI")
+        val nonZeroDataAntipastiCaldi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_ANTIPASTICALDI","$KEY_ID_ANTIPASTICALDI")
+        val nonZeroDataCaviale = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_CAVIALE","$KEY_ID_CAVIALE")
+        val nonZeroDataPrimi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_PRIMI","$KEY_ID_PRIMI")
+        val nonZeroDataSecondiCarne = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_SECONDICARNE","$KEY_ID_SECONDICARNE")
+        val nonZeroDataSecondiPesce = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_SECONDIPESCE","$KEY_ID_SECONDIPESCE")
+        val nonZeroDataControni = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_CONTORNI","$KEY_ID_CONTORNI")
 
         btnStampa.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View){
-                val outputFilePath = getExternalFilesDir(null)?.absolutePath + File.separator+"ЭТАЖ"+ floor+"СТОЛ"+table+".pdf" // Specifica il percorso per il PDF risultante
-                val pdfGenerator = PDFGenerator(this@ActivityOrder) // 'this' è il contesto dell'attività corrente
-                /*pdfGenerator.generateAndPrintPDF(stringInfo,outputFilePath, nonZeroDataAntipastiFreddi,nonZeroDataAntipastiCaldi,
-                    nonZeroDataCaviale,nonZeroDataPrimi,nonZeroDataSecondiCarne,nonZeroDataSecondiPesce,nonZeroDataControni)*/
-                val pdfFile = File(outputFilePath) // Sostituisci con il percorso effettivo del tuo file PDF
-                PDFPrinter.printPDF(this@ActivityOrder, pdfFile) // 'this' è il contesto dell'attività corrente
+                val outputFilePath = getExternalFilesDir(null)?.absolutePath + File.separator+"ЭТАЖ"+ floor+"СТОЛ"+table+".pdf"
+                val pdfGenerator = PDFGenerator(this@ActivityOrder)
+                pdfGenerator.generateAndPrintPDF(stringInfo,outputFilePath, nonZeroDataAntipastiFreddi,nonZeroDataAntipastiCaldi,
+                    nonZeroDataCaviale,nonZeroDataPrimi,nonZeroDataSecondiCarne,nonZeroDataSecondiPesce,nonZeroDataControni)
+                val pdfFile = File(outputFilePath)
+                PDFPrinter.printPDF(this@ActivityOrder, pdfFile)
             }
         })
 
 
     }
-    fun loadDataFromDBIntoMap(floor:Int,table:Int){
+    fun loadDataFromDBIntoMap(floor:Int,table:Int): Map<String,Double>{
         val translator = Translator()
         val nonZeroDataAntipastiFreddi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_ANTIPASTIFREDDI","$KEY_ID_ANTIPASTIFREDDI")
         val nonZeroDataAntipastiCaldi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"$TABLE_ANTIPASTICALDI","$KEY_ID_ANTIPASTICALDI")
@@ -85,7 +89,42 @@ class ActivityOrder : AppCompatActivity() {
                 }
             }
         }
-
+        if(nonZeroDataCaviale.size!=0){
+            for ((column, value) in nonZeroDataCaviale){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Икра",column),value)
+                }
+            }
+        }
+        if(nonZeroDataPrimi.size!=0){
+            for ((column, value) in nonZeroDataPrimi){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Первые блюда",column),value)
+                }
+            }
+        }
+        if(nonZeroDataSecondiCarne.size!=0){
+            for ((column, value) in nonZeroDataSecondiCarne){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Вторые мясные блюда",column),value)
+                }
+            }
+        }
+        if(nonZeroDataSecondiPesce.size!=0){
+            for ((column, value) in nonZeroDataSecondiPesce){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Вторые рыбные блюда",column),value)
+                }
+            }
+        }
+        if(nonZeroDataControni.size!=0){
+            for ((column, value) in nonZeroDataSecondiPesce){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Гарнир",column),value)
+                }
+            }
+        }
+        return data
     }
 
 }

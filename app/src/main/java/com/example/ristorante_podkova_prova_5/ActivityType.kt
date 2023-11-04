@@ -11,17 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 
 class ActivityType : AppCompatActivity() {
 
-    var type:String = ""
-    var table:String = ""
-    var floor:String = ""
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_type)
-        type = intent.getStringExtra("type").toString()
-        floor = intent.getIntExtra("floor", 0).toString()
-        table = intent.getIntExtra("table", 0).toString()
+        val type = intent.getStringExtra("type").toString()
+        val floor = intent.getIntExtra("floor", 0).toString()
+        val table = intent.getIntExtra("table", 0).toString()
         DatiQuery.tavolo=table
         DatiQuery.piano=floor
         DatiQuery.tabella=type
@@ -60,7 +58,7 @@ class ActivityType : AppCompatActivity() {
                 typeList= mutableListOf("Икра чëрная", "Икра красная", "Бутерброд с красной икрой", "Блины с красной икрой", "Бутерброд с чëрной икрой", "Спагетти с чëрной икрой", "Спагетти с красной икрой")
             }
             "Горячие закуски"->{
-                typeList= mutableListOf("Блины с красной икрой", "Блины с картошкой и грибами", "Блины с мясом", "Блины с грибами и сыром ", "Блины с гречкой и грибами", "Блины с картошкой, лососем и красной икрой ", "Жульен")
+                typeList= mutableListOf("Блины с красной икрой", "Блины с картошкой и грибами", "Блины с мясом", "Блины с грибами и сыром", "Блины с гречкой и грибами", "Блины с картошкой, лососем и красной икрой", "Жульен")
             }
             "Первые блюда"->{
                 typeList= mutableListOf("Пельмени сибирские с мясом", "Пельмени в бульоне", "Пельмени «астраханские» рыбные", "Вареники с картошкой", "Вареники с творогом ", "Вареники с грибами", "Борщ", "Солянка сборная")
