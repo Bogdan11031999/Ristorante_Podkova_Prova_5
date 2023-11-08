@@ -87,8 +87,18 @@ class ActivityType : AppCompatActivity() {
                     "Vodka lampone","Vodka granberry","Vodka amarena","Vodka con peppe e miele","Birra Zhygulovske",
                     "Birra Bochkovoe nefiltrovane", "Birra Kaban","Amaro","Whisky","Rum","Brendi","Cognac")
             }
+            "Bollicine"->{
+                typeList= mutableListOf("CONEGLIANO VALDOBBIADENE\nPROSECCO SUPERIORE DOCG", "R.D.O.LEVANTE", "FRANCIACORTA BRUT Barone di ERBUSCO","BILLECART-SALMON BRUT RESERVE","MOET CHANDON BRUT IMPERIAL")
+            }
         }
 
         return typeList
     }
+    /*
+                        "CONEGLIANO VALDOBBIADENE\nPROSECCO SUPERIORE DOCG"->typeTransformed="conegliano"
+                    "R.D.O.LEVANTE"->typeTransformed="levante"
+                    "FRANCIACORTA BRUT Barone di ERBUSCO"->typeTransformed="franciacorta"
+                    "BILLECART-SALMON BRUT RESERVE"->typeTransformed="lampone"
+                    "MOET CHANDON BRUT IMPERIAL"->typeTransformed="moet"
+     */
 }

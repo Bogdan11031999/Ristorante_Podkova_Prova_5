@@ -119,7 +119,15 @@ class Translator {
                     "cognac" ->typeTransformed= "Cognac"
                 }
             }
-
+            "Bollicine"->{
+                when(colum){
+                    "conegliano"->typeTransformed="CONEGLIANO VALDOBBIADENE\nPROSECCO SUPERIORE DOCG"
+                    "levante"->typeTransformed="R.D.O.LEVANTE"
+                    "franciacorta"->typeTransformed="FRANCIACORTA BRUT Barone di ERBUSCO"
+                    "lampone"->typeTransformed="BILLECART-SALMON BRUT RESERVE"
+                    "moet"->typeTransformed="MOET CHANDON BRUT IMPERIAL"
+                }
+            }
         }
         return typeTransformed
     }
@@ -136,7 +144,7 @@ class Translator {
             "Десерт"->typeTransformed="desert"
             "Напитки"->typeTransformed="bevande"
             "Алкоголь"->typeTransformed="alco"
-
+            "Bollicine"->typeTransformed=TableConstants.TABLE_BOLLICINE
         }
         return typeTransformed;
     }
@@ -257,6 +265,15 @@ class Translator {
                     "Rum"->typeTransformed="rum"
                     "Brendi"->typeTransformed="brendi"
                     "Cognac"->typeTransformed="cognac"
+                }
+            }
+            "Bollicine"->{
+                when(colum){
+                    "CONEGLIANO VALDOBBIADENE\nPROSECCO SUPERIORE DOCG"->typeTransformed="conegliano"
+                    "R.D.O.LEVANTE"->typeTransformed="levante"
+                    "FRANCIACORTA BRUT Barone di ERBUSCO"->typeTransformed="franciacorta"
+                    "BILLECART-SALMON BRUT RESERVE"->typeTransformed="lampone"
+                    "MOET CHANDON BRUT IMPERIAL"->typeTransformed="moet"
                 }
             }
         }

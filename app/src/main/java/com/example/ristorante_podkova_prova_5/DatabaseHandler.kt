@@ -509,12 +509,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             CREATE TABLE IF NOT EXISTS $TABLE_BOLLICINE (
                 $KEY_ID_BOLLICINE INTEGER PRIMARY KEY,
                 conegliano DOUBLE,
-                prosecco DOUBLE,
                 levante DOUBLE,
                 franciacorta DOUBLE,
                 billecart DOUBLE,
                 moet DOUBLE,
-                gelatoCiocolato DOUBLE,
                 chiaveEsternaTavolo INTEGER UNIQUE,
                 FOREIGN KEY (chiaveEsternaTavolo) REFERENCES $TABLE_TAVOLO($KEY_ID)
             )
