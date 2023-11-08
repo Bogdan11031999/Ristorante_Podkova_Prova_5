@@ -88,6 +88,37 @@ class Translator {
                     "verdura"->typeTransformed="Овощи гриль"
                 }
             }
+            "Напитки"->{
+                when(colum){
+                    "melaUva" -> "Сок яблочно виноградный"
+                    "pomodoro" -> "Сок томатный"
+                    "mors" -> "Морс клюквенный"
+                    "cola" -> "Кока Кола"
+                    "te" -> "Чай"
+                    "caffe" -> "Кофе"
+                    "gasata" -> "Газированая"
+                    "naturale" -> "Минеральная"
+                }
+            }
+            "Алкоголь"->{
+                when(colum){
+                    "beluga" -> "Vodka Beluga"
+                    "standart" -> "Vodka Russky Standart"
+                    "standartGlass" -> "Vodka Russky Standart Bicchiere"
+                    "lampone" -> "Vodka lampone"
+                    "granBerry" -> "Vodka granberry"
+                    "amarena" -> "Vodka amarena"
+                    "peppe" -> "Vodka con peppe e miele"
+                    "zhygulovske" -> "Birra Zhygulovske"
+                    "bochkovoe" -> "Birra Bochkovoe nefiltrovane"
+                    "kaban" -> "Birra Kaban"
+                    "amaro" -> "Amaro"
+                    "whisky" -> "Whisky"
+                    "rum" -> "Rum"
+                    "brendi" -> "Brendi"
+                    "cognac" -> "Cognac"
+                }
+            }
 
         }
         return typeTransformed
@@ -202,13 +233,11 @@ class Translator {
                     "Сок яблочно виноградный"->typeTransformed="melaUva"
                     "Сок томатный"->typeTransformed="pomodoro"
                     "Морс клюквенный"->typeTransformed="mors"
-                }
-            }
-            "Напитки"->{
-                when(colum){
-                    "Сок яблочно виноградный"->typeTransformed="melaUva"
-                    "Сок томатный"->typeTransformed="pomodoro"
-                    "Морс клюквенный"->typeTransformed="mors"
+                    "Кока Кола"->typeTransformed="cola"
+                    "Чай"->typeTransformed="te"
+                    "Кофе"->typeTransformed="caffe"
+                    "Газированая"->typeTransformed="gasata"
+                    "Минеральная"->typeTransformed="naturale"
                 }
             }
             "Алкоголь"->{
@@ -229,7 +258,7 @@ class Translator {
                     "Brendi"->typeTransformed="brendi"
                     "Cognac"->typeTransformed="cognac"
                 }
-        }
+            }
         }
         return typeTransformed
     }

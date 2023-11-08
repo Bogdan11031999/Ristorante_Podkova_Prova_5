@@ -9,7 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.Spinner
 import android.widget.TextView
 
-class CustomListOrder(private val context: Context, private val dataList: Map<String, Double>) : BaseAdapter() {
+class CustomListOrder(private val context: Context, private val dataList: Map<String, Double>,private val arrayMenu:List<String>) : BaseAdapter() {
     lateinit var spinnerNumbers : Spinner
     var selectedValue: Double = 0.0
     override fun getCount(): Int {
@@ -27,8 +27,8 @@ class CustomListOrder(private val context: Context, private val dataList: Map<St
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.custom_list_view_type, parent, false)
-
         val entry = getItem(position) as Map.Entry<String, Double>
+        val elementArrayMenu=arrayMenu.get(position-1)
         val textView = view.findViewById<TextView>(R.id.textViewItemType)
         val textViewPieces = view.findViewById<TextView>(R.id.textViewPieces)
         val numbers = arrayOf("0","1","2","3","4","5","6","7","8","9","10","0.3","0.5")

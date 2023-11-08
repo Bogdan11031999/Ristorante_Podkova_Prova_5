@@ -34,8 +34,8 @@ class ActivityType : AppCompatActivity() {
         buttonViewOrder.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View){
                 val intent = Intent(this@ActivityType, ActivityOrder::class.java)
-                intent.putExtra("floor", floor)
-                intent.putExtra("table",table)
+                intent.putExtra("floor", floor.toInt())
+                intent.putExtra("table",table.toInt())
                 startActivity(intent)
             }
         })
@@ -73,7 +73,7 @@ class ActivityType : AppCompatActivity() {
                 typeList= mutableListOf("Жаренная картошка", "Пюре", "Гречневая каша", "Овощи гриль")
             }
             "Напитки"->{
-                typeList= mutableListOf("Сок яблочно виноградный", "Сок томатный", "Морс клюквенный")
+                typeList= mutableListOf("Сок яблочно виноградный", "Сок томатный", "Морс клюквенный","Кока Кола","Чай","Кофе","Газированая","Минеральная")
             }
             "Алкоголь"->{
                 typeList= mutableListOf("Vodka Beluga", "Vodka Russky Standart", "Vodka Russky Standart Bicchiere",
