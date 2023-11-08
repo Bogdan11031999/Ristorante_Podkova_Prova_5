@@ -41,6 +41,13 @@ class ActivityType : AppCompatActivity() {
         })
 
     }
+    override fun onResume() {
+        super.onResume()
+        val listView = findViewById<ListView>(R.id.listViewType)
+        val dataList = creaListaDiNumeri(DatiQuery.tabella)
+        val adapter = CustomListType(this, dataList)
+        listView.adapter = adapter
+    }
 
 
 

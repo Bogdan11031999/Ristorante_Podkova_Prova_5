@@ -12,7 +12,7 @@ import java.io.File
 
 class ActivityOrder : AppCompatActivity() {
 
-    var arrayMenu= mutableListOf<String>()
+    val arrayMenu= mutableListOf<String>()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,7 +129,7 @@ class ActivityOrder : AppCompatActivity() {
             for ((column, value) in nonZeroDataBevande){
                 if(value!=0.0){
                     data.put(translator.transformFromEngToRussian("Напитки",column),value)
-                    createArrayMenu("Гарнир",cont)
+                    createArrayMenu("Напитки",cont)
                     cont+=1
                 }
             }
@@ -138,7 +138,7 @@ class ActivityOrder : AppCompatActivity() {
             for ((column, value) in nonZeroDataAlco){
                 if(value!=0.0){
                     data.put(translator.transformFromEngToRussian("Алкоголь",column),value)
-                    createArrayMenu("Гарнир",cont)
+                    createArrayMenu("Алкоголь",cont)
                     cont+=1
                 }
             }
@@ -146,7 +146,6 @@ class ActivityOrder : AppCompatActivity() {
         return data
     }
     fun createArrayMenu(menu:String,cont:Int):List<String>{
-        arrayMenu= mutableListOf<String>()
         arrayMenu.add(cont,menu)
         return arrayMenu
     }

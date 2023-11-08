@@ -90,33 +90,33 @@ class Translator {
             }
             "Напитки"->{
                 when(colum){
-                    "melaUva" -> "Сок яблочно виноградный"
-                    "pomodoro" -> "Сок томатный"
-                    "mors" -> "Морс клюквенный"
-                    "cola" -> "Кока Кола"
-                    "te" -> "Чай"
-                    "caffe" -> "Кофе"
-                    "gasata" -> "Газированая"
-                    "naturale" -> "Минеральная"
+                    "melaUva" ->typeTransformed= "Сок яблочно виноградный"
+                    "pomodoro" ->typeTransformed= "Сок томатный"
+                    "mors" ->typeTransformed= "Морс клюквенный"
+                    "cola" ->typeTransformed= "Кока Кола"
+                    "te" ->typeTransformed= "Чай"
+                    "caffe" ->typeTransformed= "Кофе"
+                    "gasata" ->typeTransformed= "Газированая"
+                    "naturale" ->typeTransformed= "Минеральная"
                 }
             }
             "Алкоголь"->{
                 when(colum){
-                    "beluga" -> "Vodka Beluga"
-                    "standart" -> "Vodka Russky Standart"
-                    "standartGlass" -> "Vodka Russky Standart Bicchiere"
-                    "lampone" -> "Vodka lampone"
-                    "granBerry" -> "Vodka granberry"
-                    "amarena" -> "Vodka amarena"
-                    "peppe" -> "Vodka con peppe e miele"
-                    "zhygulovske" -> "Birra Zhygulovske"
-                    "bochkovoe" -> "Birra Bochkovoe nefiltrovane"
-                    "kaban" -> "Birra Kaban"
-                    "amaro" -> "Amaro"
-                    "whisky" -> "Whisky"
-                    "rum" -> "Rum"
-                    "brendi" -> "Brendi"
-                    "cognac" -> "Cognac"
+                    "beluga" ->typeTransformed= "Vodka Beluga"
+                    "standart" ->typeTransformed= "Vodka Russky Standart"
+                    "standartGlass" ->typeTransformed= "Vodka Russky Standart Bicchiere"
+                    "lampone" ->typeTransformed= "Vodka lampone"
+                    "granBerry" ->typeTransformed= "Vodka granberry"
+                    "amarena" ->typeTransformed= "Vodka amarena"
+                    "peppe" ->typeTransformed= "Vodka con peppe e miele"
+                    "zhygulovske" ->typeTransformed= "Birra Zhygulovske"
+                    "bochkovoe" ->typeTransformed= "Birra Bochkovoe nefiltrovane"
+                    "kaban" ->typeTransformed= "Birra Kaban"
+                    "amaro" ->typeTransformed= "Amaro"
+                    "whisky" ->typeTransformed= "Whisky"
+                    "rum" ->typeTransformed= "Rum"
+                    "brendi" ->typeTransformed= "Brendi"
+                    "cognac" ->typeTransformed= "Cognac"
                 }
             }
 
