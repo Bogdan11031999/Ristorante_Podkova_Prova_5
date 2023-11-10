@@ -42,6 +42,7 @@ class CustomListType(private val context: Context, private val dataList: List<St
         spinnerNumbers.adapter = ArrayAdapter<String>(context,R.layout.spinner_dropdown_layout,numbers)
         val translator = Translator()
         val foreignKey = DatiQuery.tavolo+DatiQuery.piano
+        System.out.println(textViewItemType.text.toString())
         textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(DatiQuery.tabella),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
         spinnerNumbers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
@@ -51,8 +52,6 @@ class CustomListType(private val context: Context, private val dataList: List<St
                 } catch (e: NumberFormatException) {
                     0.0
                 }
-
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

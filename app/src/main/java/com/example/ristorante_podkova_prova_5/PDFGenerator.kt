@@ -36,6 +36,10 @@ class PDFGenerator(context: Context) {
         dataMapContorni: Map<String, Double>,
         dataMapBevande: Map<String, Double>,
         dataMapAlco: Map<String, Double>,
+        dataMapBollicine:Map<String,Double>,
+        dataMapRossi:Map<String,Double>,
+        dataMapBianchi:Map<String,Double>,
+        dataMapGeorgiani:Map<String,Double>
     ) {
         try {
             val document = PdfDocument()
@@ -104,7 +108,7 @@ class PDFGenerator(context: Context) {
 
             if (dataMapPrimi.isNotEmpty()) {
                 canvas.drawText("Первые блюда", 20f, yOffset, paint)
-                yOffset += 20f
+                yOffset += 10f
 
                 for ((key, value) in dataMapPrimi) {
                     val piatto = translator.transformFromEngToRussian("Первые блюда", key)
@@ -145,10 +149,12 @@ class PDFGenerator(context: Context) {
                 }
 
             }
-            if (dataMapBevande.isNotEmpty()) {
+            if(dataMapBevande.isNotEmpty() || dataMapAlco.isNotEmpty() ||dataMapBollicine.isNotEmpty()
+                || dataMapRossi.isNotEmpty() || dataMapBianchi.isNotEmpty() || dataMapGeorgiani.isNotEmpty() ){
                 canvas.drawText("Напитки", 20f, yOffset, paint)
                 yOffset += 10f
-
+            }
+            if (dataMapBevande.isNotEmpty()) {
                 for ((key, value) in dataMapBevande) {
                     val piatto = translator.transformFromEngToRussian("Напитки", key)
                     val text = "$piatto: $value"
@@ -158,16 +164,44 @@ class PDFGenerator(context: Context) {
 
             }
             if (dataMapAlco.isNotEmpty()) {
-                canvas.drawText("Напитки", 20f, yOffset, paint)
-                yOffset += 20f
-
                 for ((key, value) in dataMapAlco) {
                     val piatto = translator.transformFromEngToRussian("Алкоголь", key)
                     val text = "$piatto: $value"
                     canvas.drawText(text, 40f, yOffset, paint)
                     yOffset += 10f
                 }
-
+            }
+            if (dataMapBollicine.isNotEmpty()) {
+                for ((key, value) in dataMapBollicine) {
+                    val piatto = translator.transformFromEngToRussian("Bollicine", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 10f
+                }
+            }
+            if (dataMapRossi.isNotEmpty()) {
+                for ((key, value) in dataMapRossi) {
+                    val piatto = translator.transformFromEngToRussian("Vini Rossi", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 10f
+                }
+            }
+            if (dataMapBianchi.isNotEmpty()) {
+                for ((key, value) in dataMapBianchi) {
+                    val piatto = translator.transformFromEngToRussian("Vini Bianchi", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 10f
+                }
+            }
+            if (dataMapGeorgiani.isNotEmpty()) {
+                for ((key, value) in dataMapGeorgiani) {
+                    val piatto = translator.transformFromEngToRussian("Vini Georgiani", key)
+                    val text = "$piatto: $value"
+                    canvas.drawText(text, 40f, yOffset, paint)
+                    yOffset += 10f
+                }
             }
 
 

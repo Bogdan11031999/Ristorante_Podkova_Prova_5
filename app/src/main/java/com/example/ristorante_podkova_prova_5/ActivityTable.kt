@@ -20,7 +20,7 @@ class ActivityTable() : AppCompatActivity() {
         val listViewMenu = findViewById<ListView>(R.id.listViewTable)
         val buttonOrder = findViewById<Button>(R.id.buttonOrder);
         val buttonDelete = findViewById<Button>(R.id.buttonDelete)
-        val dataList = listOf("Холодные закуски", "Икра", "Горячие закуски", "Первые блюда", "Вторые мясные блюда", "Вторые рыбные блюда","Гарнир","Напитки","Алкоголь")
+        val dataList = listOf("Холодные закуски", "Икра", "Горячие закуски", "Первые блюда", "Вторые мясные блюда", "Вторые рыбные блюда","Гарнир","Напитки","Алкоголь","Bollicine","Vini Rossi","Vini Georgiani","Vini Bianchi")
         val adapter = CustomListAdapter(this, dataList)
         listViewMenu.adapter = adapter
         textView.setText("ЭТАЖ: "+floor+" СТОЛ: "+table)
@@ -35,7 +35,10 @@ class ActivityTable() : AppCompatActivity() {
                 6 -> startNewActivity(ActivityType::class.java,"Гарнир",floor, table)
                 7 -> startNewActivity(ActivityType::class.java,"Напитки",floor, table)
                 8 -> startNewActivity(ActivityType::class.java,"Алкоголь",floor, table)
-
+                9 -> startNewActivity(ActivityType::class.java,"Bollicine",floor, table)
+                10 -> startNewActivity(ActivityType::class.java,"Vini Rossi",floor, table)
+                12-> startNewActivity(ActivityType::class.java,"Vini Bianchi",floor, table)
+                11 -> startNewActivity(ActivityType::class.java,"Vini Georgiani",floor, table)
             }
         }
         buttonOrder.setOnClickListener(object : View.OnClickListener{

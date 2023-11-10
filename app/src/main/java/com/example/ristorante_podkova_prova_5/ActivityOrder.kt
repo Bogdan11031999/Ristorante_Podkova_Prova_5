@@ -36,12 +36,16 @@ class ActivityOrder : AppCompatActivity() {
         val nonZeroDataControni = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_CONTORNI}","${KeyConstant.KEY_ID_CONTORNI}")
         val nonZeroDataBevande = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_BEVANDE}","${KeyConstant.KEY_ID_BEVANDE}")
         val nonZeroDataAlco = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_ALCO}","${KeyConstant.KEY_ID_ALCO}")
+        val nonZeroDataBollicine = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_BOLLICINE}","${KeyConstant.KEY_ID_BOLLICINE}")
+        val nonZeroDataViniRossi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_ROSSI}","${KeyConstant.KEY_ID_ROSSI}")
+        val nonZeroDataViniBianchi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_BIANCHI}","${KeyConstant.KEY_ID_BIANCHI}")
+        val nonZeroDataViniGeorgiani = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_GEORGIANI}","${KeyConstant.KEY_ID_GEORGIANI}")
         btnStampa.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View){
                 val outputFilePath = getExternalFilesDir(null)?.absolutePath + File.separator+"ЭТАЖ"+ floor+"СТОЛ"+table+".pdf"
                 val pdfGenerator = PDFGenerator(this@ActivityOrder)
                 pdfGenerator.generateAndPrintPDF(stringInfo,outputFilePath, nonZeroDataAntipastiFreddi,nonZeroDataAntipastiCaldi,
-                    nonZeroDataCaviale,nonZeroDataPrimi,nonZeroDataSecondiCarne,nonZeroDataSecondiPesce,nonZeroDataControni,nonZeroDataBevande,nonZeroDataAlco)
+                    nonZeroDataCaviale,nonZeroDataPrimi,nonZeroDataSecondiCarne,nonZeroDataSecondiPesce,nonZeroDataControni,nonZeroDataBevande,nonZeroDataAlco,nonZeroDataBollicine,nonZeroDataViniRossi,nonZeroDataViniBianchi,nonZeroDataViniGeorgiani)
                 val pdfFile = File(outputFilePath)
                 PDFPrinter.printPDF(this@ActivityOrder, pdfFile)
             }
@@ -60,6 +64,11 @@ class ActivityOrder : AppCompatActivity() {
         val nonZeroDataControni = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_CONTORNI}","${KeyConstant.KEY_ID_CONTORNI}")
         val nonZeroDataBevande = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_BEVANDE}","${KeyConstant.KEY_ID_BEVANDE}")
         val nonZeroDataAlco = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_ALCO}","${KeyConstant.KEY_ID_ALCO}")
+        val nonZeroDataBollicine = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_BOLLICINE}","${KeyConstant.KEY_ID_BOLLICINE}")
+        val nonZeroDataViniRossi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_ROSSI}","${KeyConstant.KEY_ID_ROSSI}")
+        val nonZeroDataViniBianchi = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_BIANCHI}","${KeyConstant.KEY_ID_BIANCHI}")
+        val nonZeroDataViniGeorgiani = DatabaseHelper(this).retrieveDataFromDataBase((table.toString()+floor.toString()).toInt(),"${TableConstants.TABLE_GEORGIANI}","${KeyConstant.KEY_ID_GEORGIANI}")
+
         var cont = 0
         val data = mutableMapOf<String, Double>()
         if(nonZeroDataAntipastiFreddi.size!=0){
@@ -117,7 +126,7 @@ class ActivityOrder : AppCompatActivity() {
             }
         }
         if(nonZeroDataControni.size!=0){
-            for ((column, value) in nonZeroDataSecondiPesce){
+            for ((column, value) in nonZeroDataControni){
                 if(value!=0.0){
                     data.put(translator.transformFromEngToRussian("Гарнир",column),value)
                     createArrayMenu("Гарнир",cont)
@@ -139,6 +148,42 @@ class ActivityOrder : AppCompatActivity() {
                 if(value!=0.0){
                     data.put(translator.transformFromEngToRussian("Алкоголь",column),value)
                     createArrayMenu("Алкоголь",cont)
+                    cont+=1
+                }
+            }
+        }
+        if(nonZeroDataBollicine.size!=0){
+            for ((column, value) in nonZeroDataBollicine){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Bollicine",column),value)
+                    createArrayMenu("Bollicine",cont)
+                    cont+=1
+                }
+            }
+        }
+        if(nonZeroDataViniRossi.size!=0){
+            for ((column, value) in nonZeroDataViniRossi){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Vini Rossi",column),value)
+                    createArrayMenu("Vini Rossi",cont)
+                    cont+=1
+                }
+            }
+        }
+        if(nonZeroDataViniBianchi.size!=0){
+            for ((column, value) in nonZeroDataViniBianchi){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Vini Bianchi",column),value)
+                    createArrayMenu("Vini Bianchi",cont)
+                    cont+=1
+                }
+            }
+        }
+        if(nonZeroDataViniGeorgiani.size!=0){
+            for ((column, value) in nonZeroDataViniGeorgiani){
+                if(value!=0.0){
+                    data.put(translator.transformFromEngToRussian("Vini Georgiani",column),value)
+                    createArrayMenu("Vini Georgiani",cont)
                     cont+=1
                 }
             }

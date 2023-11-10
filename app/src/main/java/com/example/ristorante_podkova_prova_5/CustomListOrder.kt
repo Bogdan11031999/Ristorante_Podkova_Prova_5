@@ -31,7 +31,6 @@ class CustomListOrder(private val context: Context, private val dataList: Map<St
         val view: View = LayoutInflater.from(context).inflate(R.layout.custom_list_view_type, parent, false)
         val entry = getItem(position) as Map.Entry<String, Double>
         val translator = Translator()
-        val elementArrayMenu=arrayMenu.get(position)
         val textViewItemType= view.findViewById<TextView>(R.id.textViewItemType)
         val textViewPieces = view.findViewById<TextView>(R.id.textViewPieces)
         val buttonAdd = view.findViewById<ImageButton>(R.id.imageButtonAdd)

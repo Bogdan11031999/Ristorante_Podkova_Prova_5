@@ -546,15 +546,18 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 $KEY_ID_ROSSI INTEGER PRIMARY KEY,
                 sassela DOUBLE,
                 dolcetto DOUBLE,
+                etichettaNera DOUBLE,
                 nebbiolo DOUBLE,
                 barolo DOUBLE,
                 barbaresco DOUBLE,
                 pinot DOUBLE,
                 cabernet DOUBLE,
+                cabernetMezzo DOUBLE,
                 valpolicella DOUBLE,
                 amarone DOUBLE,
                 rosso DOUBLE,
                 chianti DOUBLE,
+                chiantiMezzo DOUBLE,
                 nobile DOUBLE,
                 brunello DOUBLE,
                 zephyro DOUBLE,
@@ -595,6 +598,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 rkatsiteli DOUBLE,
                 saperavi DOUBLE,
                 muzukani DOUBLE,
+                muzukaniBadagoni DOUBLE,
                 muzukaniMarani DOUBLE,
                 kindzmarauli DOUBLE,
                 chiaveEsternaTavolo INTEGER UNIQUE,
@@ -635,6 +639,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 chardonnay DOUBLE,
                 sauvignon DOUBLE,
                 pinot DOUBLE,
+                pinotMezzo DOUBLE,
                 pigato DOUBLE,
                 pecorino DOUBLE,
                 fiano DOUBLE,
@@ -796,8 +801,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         cursor.close()
         return data
     }
-
-
     fun setColumnValueToZero( tableName: String, columnName: String, chiaveEsterna: Int) {
         val db = this.readableDatabase
         val contentValues = ContentValues()
@@ -838,7 +841,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             updateDataToNullInTabelleByChiaveEsterna(mContext, chiaveEsterna, tableName)
         }
     }
-
     fun updateDataToNullInTabelleByChiaveEsterna(context: Context, chiaveEsterna: Int, tableName: String) {
         val db = context.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null)
         val contentValues = ContentValues()
@@ -912,7 +914,56 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         return dato
     }
+    fun updateAllColumnsToNull() {
+        val db = this.readableDatabase
 
+        val tables = arrayOf(
+            TableConstants.TABLE_ANTIPASTICALDI,
+            TableConstants.TABLE_ANTIPASTIFREDDI,
+            TableConstants.TABLE_CAVIALE,
+            TableConstants.TABLE_CONTORNI,
+            TableConstants.TABLE_PRIMI,
+            TableConstants.TABLE_SECONDICARNE,
+            TableConstants.TABLE_SECONDIPESCE,
+            TableConstants.TABLE_BEVANDE,
+            TableConstants.TABLE_ALCO,
+            TableConstants.TABLE_BOLLICINE,
+            TableConstants.TABLE_ROSSI,
+            TableConstants.TABLE_BIANCHI,
+            TableConstants.TABLE_GEORGIANI
+        )
+
+        for (table in tables) {
+            val columnNames = getTableColumnNames(db, table)
+
+            for (columnName in columnNames) {
+                val excludedColumns = listOf(KeyConstant.KEY_ID,KeyConstant.KEY_ID_ANTIPASTIFREDDI,KeyConstant.KEY_ID_ANTIPASTICALDI,
+                    KeyConstant.KEY_ID_CAVIALE,KeyConstant.KEY_ID_CONTORNI,KeyConstant.KEY_ID_PRIMI,KeyConstant.KEY_ID_SECONDICARNE,
+                    KeyConstant.KEY_ID_SECONDIPESCE,KeyConstant.KEY_ID_BEVANDE,KeyConstant.KEY_ID_ALCO,KeyConstant.KEY_ID_BOLLICINE,
+                    KeyConstant.KEY_ID_ROSSI,KeyConstant.KEY_ID_BIANCHI,KeyConstant.KEY_ID_GEORGIANI,"chiaveEsternaTavolo",
+                    TABLE_TAVOLO,
+                    KEY_ID)
+                updateColumnToNullExcludingKeys( table, excludedColumns)
+            }
+        }
+
+        db.close()
+    }
+    fun updateColumnToNullExcludingKeys( tableName: String, excludedColumns: List<String>) {
+        val db = this.readableDatabase
+
+        val contentValues = ContentValues()
+
+        val columnNames = getTableColumnNames(db, tableName)
+
+        for (columnName in columnNames) {
+            if (columnName !in excludedColumns) {
+                contentValues.putNull(columnName)
+            }
+        }
+
+        db.update(tableName, contentValues, null, null)
+    }
 
 
 }

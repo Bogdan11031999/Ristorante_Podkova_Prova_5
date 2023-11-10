@@ -26,7 +26,7 @@ class ActivityType : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.listViewType)
         val textView = findViewById<TextView>(R.id.textViewType)
         val buttonViewOrder = findViewById<Button>(R.id.buttonViewOrder)
-        textView.setText("ЭТАЖ: "+floor+" СТОЛ: "+table+" КАТ: "+type)
+        textView.setText("ЭТАЖ: "+floor+" СТОЛ: "+table+"\n"+"КАТ: "+type)
 
         val dataList = creaListaDiNumeri(type)
         val adapter = CustomListType(this, dataList)
@@ -74,7 +74,7 @@ class ActivityType : AppCompatActivity() {
                 typeList= mutableListOf("Филе «Воронов»", "Филе «Шерри»", "Филе с перцем, облитое коньяком", "Филе «Строганов»", "Филе «Строганов» с белыми грибами", "Жаркое", "«Жаркое» из овощей", "«Гуляш»","Шашлык по-кавказски ","Утка с черносливом и яблоками","Утиная грудинка с малиновым соусом ","Котлеты домашние с пюре","Каша гречневая с мясом ","Каша гречневая с белыми грибами ","Голубцы")
             }
             "Вторые рыбные блюда"->{
-                typeList= mutableListOf("Шашлык из осетрины", "Осетрина по-московски", "Подкова", "Сëмга под белым соусом", "Лосось с мëдом и горчицей", "Лосось с белыми грибами ")
+                typeList= mutableListOf("Шашлык из осетрины", "Осетрина по-московски", "Подкова рыба", "Сëмга под белым соусом", "Лосось с мëдом и горчицей", "Лосось с белыми грибами ")
             }
             "Гарнир"->{
                 typeList= mutableListOf("Жаренная картошка", "Пюре", "Гречневая каша", "Овощи гриль")
@@ -90,15 +90,60 @@ class ActivityType : AppCompatActivity() {
             "Bollicine"->{
                 typeList= mutableListOf("CONEGLIANO VALDOBBIADENE\nPROSECCO SUPERIORE DOCG", "R.D.O.LEVANTE", "FRANCIACORTA BRUT Barone di ERBUSCO","BILLECART-SALMON BRUT RESERVE","MOET CHANDON BRUT IMPERIAL")
             }
+            "Vini Rossi"->{
+                typeList = mutableListOf(
+                    "SASSELLA VALTELLINA SUPERIORE DOCG",
+                    "DOLCETTO D'ALBA",
+                    "ETICHETTA NERA",
+                    "NEBBIOLO",
+                    "BAROLO DOCG RISERVA",
+                    "BARBARESCO DOCG ASILI",
+                    "PINOT NERO ALTO ADIGE DOC",
+                    "CABERNET SAUVIGNON",
+                    "CABERNET SAUVIGNON (½ bott.)",
+                    "VALPOLICELLA CLASSICO DOC",
+                    "AMARONE DOC",
+                    "ROSSO DI MONTEPULCIANO",
+                    "CHIANTI CLASSICO D.O.C.G.",
+                    "CHIANTI CLASSICO RISERVA D.O.C.G. (½ bott.)",
+                    "NOBILE DI MONTEPULCIANO RISERVA DOCG",
+                    "BRUNELLO DI MONTALCINO RISERVA DOCG",
+                    "ZEPHYRO BOLGHERI ROSSO DOC",
+                    "MORELLINO DI SCANSANO DOCG",
+                    "ANTICO SIGILLO PRIMITIVO DI MANDURIA DOP"
+                )
+            }
+            "Vini Georgiani"->{
+                typeList = mutableListOf(
+                    "KISI-MTSVANE",
+                    "RKATSITELI",
+                    "SAPERAVI",
+                    "MUKUZANI",
+                    "MUKUZANI Badagoni",
+                    "MUKUZANI Marani",
+                    "KINDZMARAULI"
+                )
+            }
+            "Vini Bianchi"->{
+                typeList = mutableListOf(
+                    "GAVI DI GAVI",
+                    "ROERO ARNEIS",
+                    "GEWURZTRAMINER DOC",
+                    "MULLER THURGAU DOC",
+                    "CHARDONNAY COLLIO",
+                    "SAUVIGNON COLLIO",
+                    "PINOT GRIGIO COLLIO",
+                    "PINOT GRIGIO COLLIO (½ bott.)",
+                    "PIGATO DI ALBENGA R.L.P. DOC",
+                    "PECORINO SUPERIORE",
+                    "FIANO DI AVELLINO",
+                    "GRECO DI TUFFO",
+                    "VERMENTINO DI SARDEGNA DOC",
+                    "RIBOLLA GIALLA"
+                )
+            }
         }
 
         return typeList
     }
-    /*
-                        "CONEGLIANO VALDOBBIADENE\nPROSECCO SUPERIORE DOCG"->typeTransformed="conegliano"
-                    "R.D.O.LEVANTE"->typeTransformed="levante"
-                    "FRANCIACORTA BRUT Barone di ERBUSCO"->typeTransformed="franciacorta"
-                    "BILLECART-SALMON BRUT RESERVE"->typeTransformed="lampone"
-                    "MOET CHANDON BRUT IMPERIAL"->typeTransformed="moet"
-     */
 }

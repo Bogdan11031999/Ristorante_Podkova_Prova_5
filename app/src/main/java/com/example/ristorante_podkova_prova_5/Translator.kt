@@ -74,7 +74,7 @@ class Translator {
                 when(colum){
                     "shashlyk"->typeTransformed="Шашлык из осетрины"
                     "storione"->typeTransformed="Осетрина по-московски"
-                    "podkova"->typeTransformed="Подкова"
+                    "podkova"->typeTransformed="Подкова рыба"
                     "salmoneBianca"->typeTransformed="Сëмга под белым соусом"
                     "salmoneMiele"->typeTransformed="Лосось с мëдом и горчицей"
                     "salmoneFunghi"->typeTransformed="Лосось с белыми грибами"
@@ -124,8 +124,60 @@ class Translator {
                     "conegliano"->typeTransformed="CONEGLIANO VALDOBBIADENE\nPROSECCO SUPERIORE DOCG"
                     "levante"->typeTransformed="R.D.O.LEVANTE"
                     "franciacorta"->typeTransformed="FRANCIACORTA BRUT Barone di ERBUSCO"
-                    "lampone"->typeTransformed="BILLECART-SALMON BRUT RESERVE"
+                    "billecart"->typeTransformed="BILLECART-SALMON BRUT RESERVE"
                     "moet"->typeTransformed="MOET CHANDON BRUT IMPERIAL"
+                }
+            }
+            "Vini Rossi"-> {
+                when (colum) {
+                    "sassela" -> typeTransformed ="SASSELLA VALTELLINA SUPERIORE DOCG"
+                    "dolcetto" -> typeTransformed = "DOLCETTO D'ALBA"
+                    "etichettaNera" -> typeTransformed = "ETICHETTA NERA"
+                    "nebbiolo" -> typeTransformed = "NEBBIOLO"
+                    "barolo" -> typeTransformed = "BAROLO DOCG RISERVA"
+                    "barbaresco" -> typeTransformed = "BARBARESCO DOCG ASILI"
+                    "pinot" -> typeTransformed = "PINOT NERO ALTO ADIGE DOC"
+                    "cabernet" -> typeTransformed = "CABERNET SAUVIGNON"
+                    "cabernetMezzo" -> typeTransformed = "CABERNET SAUVIGNON (½ bott.)"
+                    "valpolicella" -> typeTransformed = "VALPOLICELLA CLASSICO DOC"
+                    "amarone" -> typeTransformed = "AMARONE DOC"
+                    "rosso" -> typeTransformed = "ROSSO DI MONTEPULCIANO"
+                    "chianti" -> typeTransformed = "CHIANTI CLASSICO D.O.C.G."
+                    "chiantiMezzo" -> typeTransformed = "CHIANTI CLASSICO RISERVA D.O.C.G. (½ bott.)"
+                    "nobile" -> typeTransformed = "NOBILE DI MONTEPULCIANO RISERVA DOCG"
+                    "brunello" -> typeTransformed = "BRUNELLO DI MONTALCINO RISERVA DOCG"
+                    "zephyro" -> typeTransformed = "ZEPHYRO BOLGHERI ROSSO DOC"
+                    "morellino" -> typeTransformed = "MORELLINO DI SCANSANO DOCG"
+                    "antico" -> typeTransformed = "ANTICO SIGILLO PRIMITIVO DI MANDURIA DOP"
+                }
+            }
+            "Vini Georgiani"->{
+                when(colum){
+                    "kisi"->typeTransformed="KISI-MTSVANE"
+                    "rkatsiteli"->typeTransformed="RKATSITELI"
+                    "saperavi"->typeTransformed="SAPERAVI"
+                    "muzukani"->typeTransformed="MUKUZANI"
+                    "muzukaniBadagoni"->typeTransformed="MUKUZANI Badagoni"
+                    "muzukaniMarani"->typeTransformed="MUKUZANI Marani"
+                    "kindzmarauli"->typeTransformed="KINDZMARAULI"
+                }
+            }
+            "Vini Bianchi"->{
+                when(colum){
+                    "gavi"->typeTransformed="GAVI DI GAVI"
+                    "roero"->typeTransformed="ROERO ARNEIS"
+                    "gewurztraminer"->typeTransformed="GEWURZTRAMINER DOC"
+                    "muller"->typeTransformed="MULLER THURGAU DOC"
+                    "chardonnay"->typeTransformed="CHARDONNAY COLLIO"
+                    "sauvignon"->typeTransformed="SAUVIGNON COLLIO"
+                    "pinot"->typeTransformed="PINOT GRIGIO COLLIO"
+                    "pinotMezzo"->typeTransformed="PINOT GRIGIO COLLIO (½ bott.)"
+                    "pigato"->typeTransformed="PIGATO DI ALBENGA R.L.P. DOC"
+                    "pecorino"->typeTransformed="PECORINO SUPERIORE"
+                    "fiano"->typeTransformed="FIANO DI AVELLINO"
+                    "greco"->typeTransformed="GRECO DI TUFFO"
+                    "arethusa"->typeTransformed="VERMENTINO DI SARDEGNA DOC"
+                    "ribolla"->typeTransformed="RIBOLLA GIALLA"
                 }
             }
         }
@@ -144,7 +196,10 @@ class Translator {
             "Десерт"->typeTransformed="desert"
             "Напитки"->typeTransformed="bevande"
             "Алкоголь"->typeTransformed="alco"
-            "Bollicine"->typeTransformed=TableConstants.TABLE_BOLLICINE
+            "Bollicine"->typeTransformed="bollicine"
+            "Vini Rossi"->typeTransformed=TableConstants.TABLE_ROSSI
+            "Vini Bianchi"->typeTransformed=TableConstants.TABLE_BIANCHI
+            "Vini Georgiani"->typeTransformed=TableConstants.TABLE_GEORGIANI
         }
         return typeTransformed;
     }
@@ -222,7 +277,7 @@ class Translator {
                 when(colum){
                     "Шашлык из осетрины"->typeTransformed="shashlyk"
                     "Осетрина по-московски"->typeTransformed="storione"
-                    "Подкова"->typeTransformed="podkova"
+                    "Подкова рыба"->typeTransformed="podkova"
                     "Сëмга под белым соусом"->typeTransformed="salmoneBianca"
                     "Лосось с мëдом и горчицей"->typeTransformed="salmoneMiele"
                     "Лосось с белыми грибами "->typeTransformed="salmoneFunghi"
@@ -272,8 +327,60 @@ class Translator {
                     "CONEGLIANO VALDOBBIADENE\nPROSECCO SUPERIORE DOCG"->typeTransformed="conegliano"
                     "R.D.O.LEVANTE"->typeTransformed="levante"
                     "FRANCIACORTA BRUT Barone di ERBUSCO"->typeTransformed="franciacorta"
-                    "BILLECART-SALMON BRUT RESERVE"->typeTransformed="lampone"
+                    "BILLECART-SALMON BRUT RESERVE"->typeTransformed="billecart"
                     "MOET CHANDON BRUT IMPERIAL"->typeTransformed="moet"
+                }
+            }
+            "Vini Rossi"->{
+                when(colum){
+                    "SASSELLA VALTELLINA SUPERIORE DOCG" -> typeTransformed = "sassela"
+                    "DOLCETTO D'ALBA" -> typeTransformed = "dolcetto"
+                    "ETICHETTA NERA" -> typeTransformed = "etichettaNera"
+                    "NEBBIOLO" -> typeTransformed = "nebbiolo"
+                    "BAROLO DOCG RISERVA" -> typeTransformed = "barolo"
+                    "BARBARESCO DOCG ASILI" -> typeTransformed = "barbaresco"
+                    "PINOT NERO ALTO ADIGE DOC" -> typeTransformed = "pinot"
+                    "CABERNET SAUVIGNON" -> typeTransformed = "cabernet"
+                    "CABERNET SAUVIGNON (½ bott.)" -> typeTransformed = "cabernetMezzo"
+                    "VALPOLICELLA CLASSICO DOC" -> typeTransformed = "valpolicella"
+                    "AMARONE DOC" -> typeTransformed = "amarone"
+                    "ROSSO DI MONTEPULCIANO" -> typeTransformed = "rosso"
+                    "CHIANTI CLASSICO D.O.C.G." -> typeTransformed = "chianti"
+                    "CHIANTI CLASSICO RISERVA D.O.C.G. (½ bott.)" -> typeTransformed = "chiantiMezzo"
+                    "NOBILE DI MONTEPULCIANO RISERVA DOCG" -> typeTransformed = "nobile"
+                    "BRUNELLO DI MONTALCINO RISERVA DOCG" -> typeTransformed = "brunello"
+                    "ZEPHYRO BOLGHERI ROSSO DOC" -> typeTransformed = "zephyro"
+                    "MORELLINO DI SCANSANO DOCG" -> typeTransformed = "morellino"
+                    "ANTICO SIGILLO PRIMITIVO DI MANDURIA DOP" -> typeTransformed = "antico"
+                }
+            }
+            "Vini Georgiani"->{
+                when(colum){
+                    "KISI-MTSVANE" -> typeTransformed = "kisi"
+                    "RKATSITELI" -> typeTransformed = "rkatsiteli"
+                    "SAPERAVI" -> typeTransformed = "saperavi"
+                    "MUKUZANI" -> typeTransformed = "muzukani"
+                    "MUKUZANI Badagoni" -> typeTransformed = "muzukaniBadagoni"
+                    "MUKUZANI Marani" -> typeTransformed = "muzukaniMarani"
+                    "KINDZMARAULI" -> typeTransformed = "kindzmarauli"
+                }
+            }
+            "Vini Bianchi"-> {
+                when (colum) {
+                    "GAVI DI GAVI" -> typeTransformed = "gavi"
+                    "ROERO ARNEIS" -> typeTransformed = "roero"
+                    "GEWURZTRAMINER DOC" -> typeTransformed = "gewurztraminer"
+                    "MULLER THURGAU DOC" -> typeTransformed = "muller"
+                    "CHARDONNAY COLLIO" -> typeTransformed = "chardonnay"
+                    "SAUVIGNON COLLIO" -> typeTransformed = "sauvignon"
+                    "PINOT GRIGIO COLLIO" -> typeTransformed = "pinot"
+                    "PINOT GRIGIO COLLIO (½ bott.)" -> typeTransformed = "pinotMezzo"
+                    "PIGATO DI ALBENGA R.L.P. DOC" -> typeTransformed = "pigato"
+                    "PECORINO SUPERIORE" -> typeTransformed = "pecorino"
+                    "FIANO DI AVELLINO" -> typeTransformed = "fiano"
+                    "GRECO DI TUFFO" -> typeTransformed = "greco"
+                    "VERMENTINO DI SARDEGNA DOC" -> typeTransformed = "arethusa"
+                    "RIBOLLA GIALLA" -> typeTransformed = "ribolla"
                 }
             }
         }

@@ -11,9 +11,9 @@
         android:id="@+id/textViewTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:textSize="20sp"
+        android:layout_marginTop="36dp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,20 +22,23 @@
     <ListView
         android:id="@+id/listViewTable"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="44dp"
+        android:layout_height="600dp"
+        android:layout_marginBottom="124dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTable"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="-16dp" />
 
     <Button
         android:id="@+id/buttonOrder"
-        android:layout_width="150dp"
+        android:layout_width="130sp"
         android:layout_height="55dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="44dp"
         android:layout_marginBottom="36dp"
         android:text="VISUALIZZA ORDINE"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listViewTable"
+        app:layout_constraintVertical_bias="0.663" />
 
     <TextView
         android:id="@+id/textView3"
@@ -44,17 +47,21 @@
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/listViewTable"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.409" />
 
     <Button
         android:id="@+id/buttonDelete"
-        android:layout_width="150dp"
+        android:layout_width="130sp"
         android:layout_height="55dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginStart="44dp"
         android:layout_marginBottom="36dp"
         android:text="ELIMINA \nORDINE"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonOrder" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listViewTable"
+        app:layout_constraintVertical_bias="0.663" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
