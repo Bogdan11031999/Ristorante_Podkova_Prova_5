@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityType"
+    tools:context=".activities.ActivityType"
     android:background="@color/black">
 
     <TextView
@@ -23,7 +23,7 @@
     <ListView
         android:id="@+id/listViewType"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="450dp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/textViewType"
         tools:layout_editor_absoluteX="0dp" />
@@ -39,5 +39,25 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listViewType"
-        app:layout_constraintVertical_bias="0.319" />
+        app:layout_constraintVertical_bias="0.07" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonViewOrder"
+        app:layout_constraintVertical_bias="0.236">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        </LinearLayout>
+
+    </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

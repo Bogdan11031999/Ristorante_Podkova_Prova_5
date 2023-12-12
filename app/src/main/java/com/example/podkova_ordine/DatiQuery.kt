@@ -1,4 +1,4 @@
-package com.example.ristorante_podkova_prova_5
+package com.example.podkova_ordine
 
 object DatiQuery {
     var tabella: String = ""

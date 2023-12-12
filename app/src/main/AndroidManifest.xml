@@ -16,23 +16,25 @@
         android:theme="@style/Theme.Ristorante_Podkova_Prova_5"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityOrder"
-            android:exported="false" />
+            android:name=".activities.ActivityOrder"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ActivityType"
-            android:exported="false" />
+            android:name=".activities.ActivityType"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ActivityTable"
-            android:exported="false" />
+            android:name=".activities.ActivityFloorZero"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ActivityFloorZero"
-            android:exported="false" />
+            android:name=".activities.ActivityFloorOne"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ActivityFloorOne"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".activities.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

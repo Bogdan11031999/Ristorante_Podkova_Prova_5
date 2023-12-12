@@ -1,10 +1,11 @@
-package com.example.ristorante_podkova_prova_5
+package com.example.podkova_ordine.customs
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.podkova_ordine.R
 
 class CustomListAdapter(private val context: Context, private val dataList: List<String>) : BaseAdapter() {
 

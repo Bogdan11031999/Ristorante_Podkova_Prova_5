@@ -1,4 +1,4 @@
-package com.example.ristorante_podkova_prova_5
+package com.example.podkova_ordine.customs
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,6 +10,10 @@ import android.widget.BaseAdapter
 import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
+import com.example.podkova_ordine.DatabaseHelper
+import com.example.podkova_ordine.DatiQuery
+import com.example.podkova_ordine.R
+import com.example.podkova_ordine.Translator
 
 class CustomListOrder(private val context: Context, private val dataList: Map<String, Double>,private val arrayMenu:List<String>) : BaseAdapter() {
     lateinit var spinnerNumbers : Spinner
@@ -37,10 +41,13 @@ class CustomListOrder(private val context: Context, private val dataList: Map<St
         val buttonRemove = view.findViewById<ImageButton>(R.id.imageButtonRemove)
         val numbers = arrayOf("0","1","2","3","4","5","6","7","8","9","10","0.3","0.5")
         spinnerNumbers = view.findViewById(R.id.spinnerNumbers) as Spinner
-        spinnerNumbers.adapter = ArrayAdapter<String>(context,R.layout.spinner_dropdown_layout,numbers)
+        spinnerNumbers.adapter = ArrayAdapter<String>(context,
+            R.layout.spinner_dropdown_layout,numbers)
         textViewItemType.text = entry.key
         textViewPieces.text = entry.value.toString()
-        val foreignKey = DatiQuery.tavolo+DatiQuery.piano
+        val foreignKey = DatiQuery.tavolo + DatiQuery.piano
+        var count =0.0
+        textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(arrayMenu[position]),translator.transformFromRussianColum(arrayMenu[position],textViewItemType.text.toString()),foreignKey.toInt()).toString())
         spinnerNumbers.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
                 var selectedItemAsString = parent?.getItemAtPosition(pos).toString()
@@ -61,7 +68,17 @@ class CustomListOrder(private val context: Context, private val dataList: Map<St
             override fun onClick(v: View){
                 if(selectedValue>0){
                     DatabaseHelper(context).inserisciDato(translator.trasformFromRussian(arrayMenu[position]),translator.transformFromRussianColum(arrayMenu[position],textViewItemType.text.toString()),selectedValue,foreignKey.toInt())
-                    textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(DatiQuery.tabella),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
+                    textViewPieces.setText(
+                        DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(
+                            DatiQuery.tabella
+                        ),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
+                }else{
+                    count+=1
+                    DatabaseHelper(context).inserisciDato(translator.trasformFromRussian(arrayMenu[position]),translator.transformFromRussianColum(arrayMenu[position],textViewItemType.text.toString()),count,foreignKey.toInt())
+                    textViewPieces.setText(
+                        DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(
+                            DatiQuery.tabella
+                        ),translator.transformFromRussianColum(DatiQuery.tabella,textViewItemType.text.toString()),foreignKey.toInt()).toString())
                 }
             }
         })
@@ -71,6 +88,7 @@ class CustomListOrder(private val context: Context, private val dataList: Map<St
                 DatabaseHelper(context).setColumnValueToZero(translator.trasformFromRussian(arrayMenu[position]),translator.transformFromRussianColum(arrayMenu[position],textViewItemType.text.toString()),foreignKey.toInt())
                 textViewPieces.setText(DatabaseHelper(context).getDatoFromTabella(translator.trasformFromRussian(arrayMenu[position]),translator.transformFromRussianColum(arrayMenu[position],textViewItemType.text.toString()),foreignKey.toInt()).toString())
                 spinnerNumbers.setSelection(0)
+                count=0.0
             }
         })
 

@@ -1,4 +1,4 @@
-package com.example.ristorante_podkova_prova_5
+package com.example.podkova_ordine
 
 import android.content.Context
 import android.graphics.Canvas
@@ -13,7 +13,7 @@ import android.print.PrintAttributes
 import android.print.PrintDocumentAdapter
 import android.print.PrintDocumentInfo
 import android.print.PrintManager
-
+import com.example.ristorante_podkova_prova_5.R
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -21,8 +21,6 @@ import java.io.IOException
 
 
 class PDFGenerator(context: Context) {
-
-    private val mContext = context
 
     fun generateAndPrintPDF(
         stringInfo: String,
@@ -43,8 +41,8 @@ class PDFGenerator(context: Context) {
     ) {
         try {
             val document = PdfDocument()
-            val pageWidthMm = 105
-            val pageHeightMm = 148
+            val pageWidthMm = 1050
+            val pageHeightMm = 1480
             val pageWidthPt = pageWidthMm * 2.83465f
             val pageHeightPt = pageHeightMm * 2.83465f
 
@@ -54,153 +52,214 @@ class PDFGenerator(context: Context) {
 
             val paint = Paint()
             paint.color = Color.BLACK
-            paint.textSize = 7f
+            paint.textSize = 170f
+
+            val paintMenu=Paint()
+            paintMenu.textSize=100f
+            paintMenu.color = Color.BLACK
 
             val translator = Translator()
 
-            var yOffset = 40f
+            var yOffset = 100f
+            var xOffset = 20f
 
-            canvas.drawText(stringInfo, 20f, yOffset, paint)
-            yOffset += 10f
+            canvas.drawText(stringInfo, xOffset, yOffset, paintMenu)
+            yOffset += 150f
 
             if (dataMapAntipastiFreddi.isNotEmpty() || dataMapAntipastiCaldi.isNotEmpty()) {
-                canvas.drawText("Закуски", 20f, yOffset, paint)
-                yOffset += 10f
 
                 for ((key, value) in dataMapAntipastiFreddi) {
                     val piatto = translator.transformFromEngToRussian("Холодные закуски", key)
                     if(value!=0.3 && value!=0.5){
                         val text = "$piatto: ${value.toInt()}"
-                        canvas.drawText(text, 40f, yOffset, paint)
+                        canvas.drawText(text, xOffset, yOffset, paint)
                     }else{
                         val text = "$piatto: $value"
-                        canvas.drawText(text, 40f, yOffset, paint)
+                        canvas.drawText(text, xOffset, yOffset, paint)
                     }
 
-                    yOffset += 10f
+                    yOffset += 200f
                 }
 
                 for ((key, value) in dataMapAntipastiCaldi) {
                     val piatto = translator.transformFromEngToRussian("Горячие закуски", key)
                     if(value!=0.3 && value!=0.5){
                         val text = "$piatto: ${value.toInt()}"
-                        canvas.drawText(text, 40f, yOffset, paint)
+                        canvas.drawText(text, xOffset, yOffset, paint)
                     }else{
                         val text = "$piatto: $value"
-                        canvas.drawText(text, 40f, yOffset, paint)
+                        canvas.drawText(text, xOffset, yOffset, paint)
                     }
-                    yOffset += 10f
+                    yOffset += 200f
                 }
 
                 for ((key, value) in dataMapCaviale) {
                     val piatto = translator.transformFromEngToRussian("Икра", key)
                     if(value!=0.3 && value!=0.5){
                         val text = "$piatto: ${value.toInt()}"
-                        canvas.drawText(text, 40f, yOffset, paint)
+                        canvas.drawText(text, xOffset, yOffset, paint)
                     }else{
                         val text = "$piatto: $value"
-                        canvas.drawText(text, 40f, yOffset, paint)
+                        canvas.drawText(text, xOffset, yOffset, paint)
                     }
 
-                    yOffset += 10f
+                    yOffset += 200f
                 }
             }
 
             if (dataMapPrimi.isNotEmpty()) {
-                canvas.drawText("Первые блюда", 20f, yOffset, paint)
-                yOffset += 10f
+                yOffset -= 40f
+                canvas.drawText("---------------------", xOffset, yOffset, paint)
+                yOffset += 140f
 
                 for ((key, value) in dataMapPrimi) {
                     val piatto = translator.transformFromEngToRussian("Первые блюда", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                    if(value!=0.3 && value!=0.5){
+                        val text = "$piatto: ${value.toInt()}"
+                        canvas.drawText(text, xOffset, yOffset, paint)
+                    }else{
+                        val text = "$piatto: $value"
+                        canvas.drawText(text, xOffset, yOffset, paint)
+                    }
+                    yOffset += 200f
                 }
 
             }
             if (dataMapSecondiCarne.isNotEmpty() || dataMapSecondiPesce.isNotEmpty() ) {
-                canvas.drawText("Вторые блюда", 20f, yOffset, paint)
-                yOffset += 10f
+
+                yOffset -= 40f
+                canvas.drawText("---------------------", xOffset, yOffset, paint)
+                yOffset += 140f
 
                 for ((key, value) in dataMapSecondiCarne) {
                     val piatto = translator.transformFromEngToRussian("Вторые мясные блюда", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                    if(value!=0.3 && value!=0.5){
+                        val text = "$piatto: ${value.toInt()}"
+                        canvas.drawText(text, xOffset, yOffset, paint)
+                    }else{
+                        val text = "$piatto: $value"
+                        canvas.drawText(text, xOffset, yOffset, paint)
+                    }
+                    yOffset += 200f
                 }
 
                 for ((key, value) in dataMapSecondiPesce) {
                     val piatto = translator.transformFromEngToRussian("Вторые рыбные блюда", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                    if(value!=0.3 && value!=0.5){
+                        val text = "$piatto: ${value.toInt()}"
+                        canvas.drawText(text, xOffset, yOffset, paint)
+                    }else{
+                        val text = "$piatto: $value"
+                        canvas.drawText(text, xOffset, yOffset, paint)
+                    }
+                    yOffset += 200f
                 }
 
             }
             if (dataMapContorni.isNotEmpty()) {
-                canvas.drawText("Гарнир", 20f, yOffset, paint)
-                yOffset += 10f
+
+                yOffset -= 40f
+                canvas.drawText("---------------------", xOffset, yOffset, paint)
+                yOffset += 140f
 
                 for ((key, value) in dataMapContorni) {
                     val piatto = translator.transformFromEngToRussian("Гарнир", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                    if(value!=0.3 && value!=0.5){
+                        val text = "$piatto: ${value.toInt()}"
+                        canvas.drawText(text, xOffset, yOffset, paint)
+                    }else{
+                        val text = "$piatto: $value"
+                        canvas.drawText(text, xOffset, yOffset, paint)
+                    }
+                    yOffset += 200f
                 }
 
             }
             if(dataMapBevande.isNotEmpty() || dataMapAlco.isNotEmpty() ||dataMapBollicine.isNotEmpty()
                 || dataMapRossi.isNotEmpty() || dataMapBianchi.isNotEmpty() || dataMapGeorgiani.isNotEmpty() ){
-                canvas.drawText("Напитки", 20f, yOffset, paint)
-                yOffset += 10f
-            }
-            if (dataMapBevande.isNotEmpty()) {
-                for ((key, value) in dataMapBevande) {
-                    val piatto = translator.transformFromEngToRussian("Напитки", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
-                }
 
-            }
-            if (dataMapAlco.isNotEmpty()) {
-                for ((key, value) in dataMapAlco) {
-                    val piatto = translator.transformFromEngToRussian("Алкоголь", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                yOffset -= 40f
+                canvas.drawText("---------------------", xOffset, yOffset, paint)
+                yOffset += 140f
+
+                if (dataMapBevande.isNotEmpty()) {
+                    for ((key, value) in dataMapBevande) {
+                        val piatto = translator.transformFromEngToRussian("Напитки", key)
+                        if(value!=0.3 && value!=0.5){
+                            val text = "$piatto: ${value.toInt()}"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }else{
+                            val text = "$piatto: $value"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }
+                        yOffset += 200f
+                    }
+
                 }
-            }
-            if (dataMapBollicine.isNotEmpty()) {
-                for ((key, value) in dataMapBollicine) {
-                    val piatto = translator.transformFromEngToRussian("Bollicine", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                if (dataMapAlco.isNotEmpty()) {
+                    for ((key, value) in dataMapAlco) {
+                        val piatto = translator.transformFromEngToRussian("Алкоголь", key)
+                        if(value!=0.3 && value!=0.5){
+                            val text = "$piatto: ${value.toInt()}"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }else{
+                            val text = "$piatto: $value"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }
+                        yOffset += 200f
+                    }
                 }
-            }
-            if (dataMapRossi.isNotEmpty()) {
-                for ((key, value) in dataMapRossi) {
-                    val piatto = translator.transformFromEngToRussian("Vini Rossi", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                if (dataMapBollicine.isNotEmpty()) {
+                    for ((key, value) in dataMapBollicine) {
+                        val piatto = translator.transformFromEngToRussian("Bollicine", key)
+                        if(value!=0.3 && value!=0.5){
+                            val text = "$piatto: ${value.toInt()}"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }else{
+                            val text = "$piatto: $value"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }
+                        yOffset += 200f
+                    }
                 }
-            }
-            if (dataMapBianchi.isNotEmpty()) {
-                for ((key, value) in dataMapBianchi) {
-                    val piatto = translator.transformFromEngToRussian("Vini Bianchi", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                if (dataMapRossi.isNotEmpty()) {
+                    for ((key, value) in dataMapRossi) {
+                        val piatto = translator.transformFromEngToRussian("Vini Rossi", key)
+                        if(value!=0.3 && value!=0.5){
+                            val text = "$piatto: ${value.toInt()}"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }else{
+                            val text = "$piatto: $value"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }
+                        yOffset += 200f
+                    }
                 }
-            }
-            if (dataMapGeorgiani.isNotEmpty()) {
-                for ((key, value) in dataMapGeorgiani) {
-                    val piatto = translator.transformFromEngToRussian("Vini Georgiani", key)
-                    val text = "$piatto: $value"
-                    canvas.drawText(text, 40f, yOffset, paint)
-                    yOffset += 10f
+                if (dataMapBianchi.isNotEmpty()) {
+                    for ((key, value) in dataMapBianchi) {
+                        val piatto = translator.transformFromEngToRussian("Vini Bianchi", key)
+                        if(value!=0.3 && value!=0.5){
+                            val text = "$piatto: ${value.toInt()}"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }else{
+                            val text = "$piatto: $value"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }
+                        yOffset += 200f
+                    }
+                }
+                if (dataMapGeorgiani.isNotEmpty()) {
+                    for ((key, value) in dataMapGeorgiani) {
+                        val piatto = translator.transformFromEngToRussian("Vini Georgiani", key)
+                        if(value!=0.3 && value!=0.5){
+                            val text = "$piatto: ${value.toInt()}"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }else{
+                            val text = "$piatto: $value"
+                            canvas.drawText(text, xOffset, yOffset, paint)
+                        }
+                        yOffset += 200f
+                    }
                 }
             }
 
@@ -281,7 +340,7 @@ class PDFGenerator(context: Context) {
                 val input = FileInputStream(pdfFile)
                 val output = FileOutputStream(destination?.fileDescriptor)
 
-                val buffer = ByteArray(1024)
+                val buffer = ByteArray(3024)
                 var bytesRead: Int
 
                 while (input.read(buffer).also { bytesRead = it } != -1) {

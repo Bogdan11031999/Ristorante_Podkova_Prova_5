@@ -1,17 +1,21 @@
-package com.example.ristorante_podkova_prova_5
-
+package com.example.podkova_ordine.activities
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.podkova_ordine.DatabaseHelper
+import com.example.podkova_ordine.R
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val btnFloorOne = findViewById<Button>(R.id.btnFloorOne)
         val btnFloorZero = findViewById<Button>(R.id.btnFloorZero)
         val btnResetAll = findViewById<Button>(R.id.buttonResetAll)
@@ -56,6 +60,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        // Imposta la scala del font desiderata (ad esempio 1.0 per il default)
+        val overrideConfiguration = Configuration(newBase.resources.configuration)
+        overrideConfiguration.fontScale = 1.0f
+
+        // Applica la configurazione al contesto dell'attività
+        val context: Context = newBase.createConfigurationContext(overrideConfiguration)
+        super.attachBaseContext(context)
+    }
 
 
 

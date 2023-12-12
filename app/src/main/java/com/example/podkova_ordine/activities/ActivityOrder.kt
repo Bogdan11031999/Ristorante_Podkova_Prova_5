@@ -1,4 +1,4 @@
-package com.example.ristorante_podkova_prova_5
+package com.example.podkova_ordine.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,6 +7,14 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.podkova_ordine.customs.CustomListOrder
+import com.example.podkova_ordine.DatabaseHelper
+import com.example.podkova_ordine.KeyConstant
+import com.example.podkova_ordine.PDFGenerator
+import com.example.podkova_ordine.PDFPrinter
+import com.example.podkova_ordine.R
+import com.example.podkova_ordine.TableConstants
+import com.example.podkova_ordine.Translator
 import java.io.File
 
 

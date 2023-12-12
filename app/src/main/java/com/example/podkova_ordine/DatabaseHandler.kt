@@ -1,4 +1,4 @@
-package com.example.ristorante_podkova_prova_5
+package com.example.podkova_ordine
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
